@@ -42,4 +42,5 @@ form {
 
 .load-btn {
   width: auto;
+  display: none;
 }
