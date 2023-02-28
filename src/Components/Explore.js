@@ -13,6 +13,8 @@ const Explore = () => {
   const [imagesToLoad, setImagesToLoad] = useState([]);
   let searchValue = useRef("");
   let loadPageNo = useRef(1);
+  const loadBtn = useRef(null);
+  let isLoadBtnShown = useRef(false);
 
 
   const fetchPhotos = useCallback(async (URL, action) => {
@@ -49,6 +51,12 @@ const Explore = () => {
       case "search" :
         searchValue.current = searchQuery;
         loadPageNo.current = 1;
+        if (!isLoadBtnShown.current) {
+          setTimeout(() => {
+            loadBtn.current.style.display = "block";
+            isLoadBtnShown.current = true;
+          }, 1500);
+        }
         break;
 
       case "load" :
@@ -107,6 +115,7 @@ const Explore = () => {
         <Button
           className="load-btn px-5 mx-auto mt-5"
           color="danger"
+          innerRef={loadBtn}
           onClick={event => handleSearch(event, "load")}>
             Load More
         </Button>
