@@ -46,6 +46,10 @@ const Explore = () => {
 
     event.preventDefault();
 
+    if (!searchQuery) {
+      return;
+    }
+
     switch(action) {
 
       case "search" :
