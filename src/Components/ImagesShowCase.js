@@ -10,7 +10,7 @@ const ImagesShowCase = ({ imagesToLoad }) => {
   return (
     <>
       {imagesToLoad.map(imageToLoad => (
-        <Col className="py-3" key={imageToLoad.id} md={3}>
+        <Col className="py-3" key={imageToLoad.id} sm={4} md={3}>
           <ProgressiveImage src={imageToLoad.regular} placeholder={imageToLoad.thumb}>
             {(src, loading) => (
               <div className="image-container position-relative" style={{backgroundColor : randomColor()}}>
