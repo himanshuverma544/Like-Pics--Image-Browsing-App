@@ -1,12 +1,13 @@
-Developed "Like Pics" - a web app for favourite image-browsing adventures that allows users to search, view, like and download images, which also lets the users access liked images later with ease. Implemented user sign-up functionality and designed a system to keep images organized.
+# About
+- Developed "Like Pics" - a web app for favourite image-browsing adventures that allows users to search, view, like and download images, which also lets the users access liked images later with ease. Implemented user sign-up functionality and designed a system to keep images organized.
 
-• Technology Used
+# Technology Used
 - React
 
-• API Used
+# API Used
 - Unsplash API
 
-• Libraries Used
+# Libraries Used
 - redux
 - react-router-dom
 - axios
@@ -30,5 +31,5 @@ Developed "Like Pics" - a web app for favourite image-browsing adventures that a
 - Handling Images: Lazy loading and Progressive image loading
 - Performance of the application (memo)
 
-• Deployed On
+# Deployed On
 - GitHub Pages
