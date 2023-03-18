@@ -20,7 +20,7 @@
 - uuid
 - gh-pages
 
-• Concepts Covered
+# Concepts Covered
 - ES6
 - React Components
 - React Props
