@@ -6,15 +6,16 @@ import { getImage } from "../functions";
 import ImagesShowCase from "./ImagesShowCase";
 
 
-
 const Explore = () => {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [imagesToLoad, setImagesToLoad] = useState([]);
-  let searchValue = useRef("");
-  let loadPageNo = useRef(1);
-  const loadBtn = useRef(null);
-  let isLoadBtnShown = useRef(false);
+  const metaValues = useRef({
+    searchValue : "",
+    loadPageNo : 1
+  });
+  const loadBtnNode = useRef(null);
+  const msgUserNode = useRef(null);
 
 
   const fetchPhotos = useCallback(async (URL, action) => {
@@ -45,7 +46,7 @@ const Explore = () => {
   const handleSearch = useCallback((event, action, perPage = 16) => {
 
     event.preventDefault();
-
+    
     if (!searchQuery) {
       return;
     }
@@ -53,25 +54,31 @@ const Explore = () => {
     switch(action) {
 
       case "search" :
-        searchValue.current = searchQuery;
-        loadPageNo.current = 1;
-        if (!isLoadBtnShown.current) {
+        metaValues.searchValue.current = searchQuery;
+        metaValues.loadPageNo.current = 1;
+
+        if (loadBtnNode.current) {
           setTimeout(() => {
-            loadBtn.current.style.display = "block";
-            isLoadBtnShown.current = true;
+            loadBtnNode.current.style.display = "block";
+            loadBtnNode.current = null;
           }, 1500);
+        }
+
+        if (msgUserNode.current) {
+          msgUserNode.current.style.display = "none";
+          msgUserNode.current = null;
         }
         break;
 
       case "load" :
-        ++loadPageNo.current;
+        ++metaValues.loadPageNo.current;
         break;
         
-      default:
+      default: break;
     }
 
     const unsplashApiUrl = 
-    `https://api.unsplash.com/search/photos?query=${searchValue.current}&page=${loadPageNo.current}&per_page=${perPage}&client_id=${process.env.REACT_APP_API_ACCESS_KEY}`;
+    `https://api.unsplash.com/search/photos?query=${metaValues.searchValue.current}&page=${metaValues.loadPageNo.current}&per_page=${perPage}&client_id=${process.env.REACT_APP_API_ACCESS_KEY}`;
 
     fetchPhotos(unsplashApiUrl, action);
 
@@ -119,10 +126,18 @@ const Explore = () => {
         <Button
           className="load-btn px-5 mx-auto mt-5"
           color="danger"
-          innerRef={loadBtn}
+          innerRef={loadBtnNode}
           onClick={event => handleSearch(event, "load")}>
             Load More
         </Button>
+      </Row>
+
+      <Row>
+        <div className="msg-user" ref={msgUserNode}>
+          <h6>Hi, some features of this app are still under development.</h6>
+          <h6>In the meantime, feel free to use and enjoy the built features.</h6>
+          <h6>Thanks for your cooperation.</h6>
+        </div>
       </Row>
     </div>
   );
