@@ -22,6 +22,10 @@ const Explore = () => {
 
     const { data: {results} } = await Axios.get(URL, {});
     
+    if (action === "search") {
+      loadBtnNode.current.style.display = results.length ? "block" : "none";
+    }
+
     const imagesToLoad = results.map(image => {
       const imgReqData = {
         id : image.id,
@@ -43,7 +47,7 @@ const Explore = () => {
   }, []);
 
 
-  const handleSearch = useCallback((event, action, perPage = 16) => {
+  const handleSearch = useCallback((event, action, perPage = 20) => {
 
     event.preventDefault();
     
@@ -54,13 +58,12 @@ const Explore = () => {
     switch(action) {
 
       case "search" :
-        metaValues.searchValue.current = searchQuery;
-        metaValues.loadPageNo.current = 1;
+        metaValues.current.searchValue = searchQuery;
+        metaValues.current.loadPageNo = 1;
 
-        if (loadBtnNode.current) {
+        if (!loadBtnNode.current.style.display) {
           setTimeout(() => {
             loadBtnNode.current.style.display = "block";
-            loadBtnNode.current = null;
           }, 1500);
         }
 
@@ -71,14 +74,14 @@ const Explore = () => {
         break;
 
       case "load" :
-        ++metaValues.loadPageNo.current;
-        break;
+        ++metaValues.current.loadPageNo;
+      break;
         
       default: break;
     }
 
     const unsplashApiUrl = 
-    `https://api.unsplash.com/search/photos?query=${metaValues.searchValue.current}&page=${metaValues.loadPageNo.current}&per_page=${perPage}&client_id=${process.env.REACT_APP_API_ACCESS_KEY}`;
+    `https://api.unsplash.com/search/photos?query=${metaValues.current.searchValue}&page=${metaValues.current.loadPageNo}&per_page=${perPage}&client_id=${process.env.REACT_APP_API_ACCESS_KEY}`;
 
     fetchPhotos(unsplashApiUrl, action);
 
