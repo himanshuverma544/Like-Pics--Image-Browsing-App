@@ -44,3 +44,8 @@ form {
   width: auto;
   display: none;
 }
+
+.msg-user {
+  text-align: center;
+  color: #FFF;
+}
