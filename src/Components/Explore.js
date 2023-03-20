@@ -61,12 +61,6 @@ const Explore = () => {
         metaValues.current.searchValue = searchQuery;
         metaValues.current.loadPageNo = 1;
 
-        if (!loadBtnNode.current.style.display) {
-          setTimeout(() => {
-            loadBtnNode.current.style.display = "block";
-          }, 1500);
-        }
-
         if (msgUserNode.current) {
           msgUserNode.current.style.display = "none";
           msgUserNode.current = null;
