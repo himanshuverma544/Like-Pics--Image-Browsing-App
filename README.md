@@ -2,7 +2,7 @@
 Developed "Like Pics" - a web app for favourite image-browsing adventures.
 - Allows users to search, view, like and download images.
 - Lets the users access liked images later with ease.
-- Implemented user sign-up functionality and designed a system to keep images organized. 
+- Implemented user sign-up functionality and designed a system to keep images organized.
 
 # Technology Used
 - React
