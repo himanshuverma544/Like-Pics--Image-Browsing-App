@@ -3,15 +3,19 @@ import "react-toastify/dist/ReactToastify.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
-import Explore from "./Components/Explore";
+import Explore from "./components/Explore";
 
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
 function App() {
-
+  
   return (
-    <Container className="py-5">
-      <Explore/>
-    </Container>
+    <Provider store={store}>
+      <Container className="py-5">
+        <Explore/>
+      </Container>
+    </Provider>
   );
 }
 
