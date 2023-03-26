@@ -15,10 +15,11 @@ import ImagesShowCase from "./ImagesShowCase";
 // redux
 import { useDispatch } from "react-redux";
 import { searchImages, loadImages } from "../redux/action/action-creators";
+import { connect } from "react-redux";
 
 
 
-const Explore = () => {
+const Explore = ( {searchImages, loadImages} ) => {
 
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -68,7 +69,7 @@ const Explore = () => {
 
     const imagesToLoad = await fetchPhotos();
 
-    dispatch(loadImages(imagesToLoad));
+    loadImages(imagesToLoad);
 
   }, [fetchPhotos, dispatch]);
 
@@ -91,7 +92,7 @@ const Explore = () => {
 
     const imagesToLoad = await fetchPhotos();
 
-    dispatch(searchImages(imagesToLoad));
+    searchImages(imagesToLoad);
 
   }, [searchQuery, fetchPhotos, dispatch]);
 
@@ -152,4 +153,15 @@ const Explore = () => {
   );
 };
 
-export default memo(Explore);
+
+const mapDispatchToProps = (dispatch) => ({
+  searchImages: (images) => {
+    dispatch(searchImages(images));
+  },
+  loadImages: (images) => {
+    dispatch(loadImages(images));
+  }
+});
+
+
+export default memo(connect(null, mapDispatchToProps)(Explore));
