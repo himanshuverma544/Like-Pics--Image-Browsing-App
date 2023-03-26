@@ -1,21 +1,24 @@
 import { memo } from "react";
+import { useSelector } from "react-redux";
 import { Col } from "reactstrap";
 import ProgressiveImage from "react-progressive-graceful-image";
 import { Hearts } from "react-loading-icons";
 import randomColor from "randomcolor";
 
 
-const ImagesShowCase = ({ imagesToLoad }) => {
-  
+const ImagesShowCase = () => {
+
+  const imagesToDisplay = useSelector(state => state.imagesReducer);
+
   return (
     <>
-      {imagesToLoad.map(imageToLoad => (
-        <Col className="py-3" key={imageToLoad.id} sm={4} md={3}>
-          <ProgressiveImage src={imageToLoad.regular} placeholder={imageToLoad.thumb}>
+      {imagesToDisplay.map(imageToDisplay => (
+        <Col className="py-3" key={imageToDisplay.id} sm={4} md={3}>
+          <ProgressiveImage src={imageToDisplay.regular} placeholder={imageToDisplay.thumb}>
             {(src, loading) => (
               <div className="image-container position-relative" style={{backgroundColor : randomColor()}}>
                 <Hearts className="hearts-loading-icon ms-3 position-absolute top-0 start-0" style={{ display : loading ? "block" : "none" }} stroke="#000"/>
-                <img className="image" src={src} alt={imageToLoad.alt}/>
+                <img className="image" src={src} alt={imageToDisplay.alt}/>
               </div>
             )}
           </ProgressiveImage>

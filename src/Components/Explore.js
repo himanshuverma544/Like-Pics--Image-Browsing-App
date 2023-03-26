@@ -1,15 +1,27 @@
+// react hooks
 import React, { useState, useRef, useCallback, memo } from "react";
+
 import Axios from "axios";
+
 import { Row, Col, Button, Form, Input, InputGroup } from "reactstrap";
-import {v4 as getKey} from "uuid";
+
+// functions
+// import {v4 as getKey} from "uuid";
 import { getImage } from "../functions";
+
+// components
 import ImagesShowCase from "./ImagesShowCase";
+
+// redux
+import { useDispatch } from "react-redux";
+import { searchImages, loadImages } from "../redux/action/action-creators";
+
 
 
 const Explore = () => {
 
   const [searchQuery, setSearchQuery] = useState("");
-  const [imagesToLoad, setImagesToLoad] = useState([]);
+
   const metaValues = useRef({
     searchValue : "",
     loadPageNo : 1
@@ -17,14 +29,23 @@ const Explore = () => {
   const loadBtnNode = useRef(null);
   const msgUserNode = useRef(null);
 
+  const dispatch = useDispatch();
 
-  const fetchPhotos = useCallback(async (URL, action) => {
-
-    const { data: {results} } = await Axios.get(URL, {});
     
-    if (action === "search") {
-      loadBtnNode.current.style.display = results.length ? "block" : "none";
-    }
+  const fetchPhotos = useCallback(async () => {
+
+    const URL = "https://api.unsplash.com/search/photos";
+
+    const { data: {results} } = await Axios.get(URL, {
+      params: {
+        query: metaValues.current.searchValue,
+        page: metaValues.current.loadPageNo,
+        per_page: 20,
+        client_id: process.env.REACT_APP_API_ACCESS_KEY
+      }
+    });
+    
+    loadBtnNode.current.style.display = results.length ? "block" : "none";
 
     const imagesToLoad = results.map(image => {
       const imgReqData = {
@@ -35,19 +56,24 @@ const Explore = () => {
       }
       return imgReqData;
     });
-  
-    setImagesToLoad(prev => {    
-      switch (action) {
-        case "search" : return [imagesToLoad];
-        case "load" : return [...prev, imagesToLoad];
-        default : return [];
-      }
-    });
+
+    return imagesToLoad;
 
   }, []);
 
 
-  const handleSearch = useCallback((event, action, perPage = 20) => {
+  const handleLoadImages = useCallback(async () => {
+
+    ++metaValues.current.loadPageNo;
+
+    const imagesToLoad = await fetchPhotos();
+
+    dispatch(loadImages(imagesToLoad));
+
+  }, [fetchPhotos, dispatch]);
+
+
+  const handleSearchImages = useCallback(async (event) => {
 
     event.preventDefault();
     
@@ -55,31 +81,19 @@ const Explore = () => {
       return;
     }
 
-    switch(action) {
+    metaValues.current.searchValue = searchQuery;
+    metaValues.current.loadPageNo = 1;
 
-      case "search" :
-        metaValues.current.searchValue = searchQuery;
-        metaValues.current.loadPageNo = 1;
-
-        if (msgUserNode.current) {
-          msgUserNode.current.style.display = "none";
-          msgUserNode.current = null;
-        }
-        break;
-
-      case "load" :
-        ++metaValues.current.loadPageNo;
-      break;
-        
-      default: break;
+    if (msgUserNode.current) {
+      msgUserNode.current.style.display = "none";
+      msgUserNode.current = null;
     }
 
-    const unsplashApiUrl = 
-    `https://api.unsplash.com/search/photos?query=${metaValues.current.searchValue}&page=${metaValues.current.loadPageNo}&per_page=${perPage}&client_id=${process.env.REACT_APP_API_ACCESS_KEY}`;
+    const imagesToLoad = await fetchPhotos();
 
-    fetchPhotos(unsplashApiUrl, action);
+    dispatch(searchImages(imagesToLoad));
 
-  }, [searchQuery, fetchPhotos]);
+  }, [searchQuery, fetchPhotos, dispatch]);
 
 
   return (
@@ -93,7 +107,7 @@ const Explore = () => {
 
       <Row>
         <Col md={12}>
-          <Form onSubmit={event => handleSearch(event, "search")}>
+          <Form onSubmit={event => handleSearchImages(event)}>
             <InputGroup>
               <Input
                 type="text"
@@ -114,9 +128,7 @@ const Explore = () => {
       </Row>
 
       <Row className="images-showcase">
-        {imagesToLoad.map(data => 
-          <ImagesShowCase key={getKey()} imagesToLoad={data}/>
-        )}
+          <ImagesShowCase/>
       </Row>
       
       <Row>
@@ -124,7 +136,7 @@ const Explore = () => {
           className="load-btn px-5 mx-auto mt-5"
           color="danger"
           innerRef={loadBtnNode}
-          onClick={event => handleSearch(event, "load")}>
+          onClick={() => handleLoadImages()}>
             Load More
         </Button>
       </Row>
@@ -138,6 +150,6 @@ const Explore = () => {
       </Row>
     </div>
   );
-}
+};
 
 export default memo(Explore);
