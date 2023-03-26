@@ -4,13 +4,11 @@ import { Col } from "reactstrap";
 import ProgressiveImage from "react-progressive-graceful-image";
 import { Hearts } from "react-loading-icons";
 import randomColor from "randomcolor";
-import { connect } from "react-redux";
 
 
+const ImagesShowCase = () => {
 
-const ImagesShowCase = ( {imagesToDisplay} ) => {
-
-  // const imagesToDisplay = useSelector(state => state.imagesReducer);
+  const imagesToDisplay = useSelector(state => state.imagesReducer);
 
   return (
     <>
@@ -30,8 +28,4 @@ const ImagesShowCase = ( {imagesToDisplay} ) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-    imagesToDisplay: state.imagesReducer
-  });
-
-export default memo(connect(mapStateToProps, null)(ImagesShowCase));
+export default memo(ImagesShowCase);
