@@ -1,12 +1,11 @@
-import { combineReducers, createStore } from "redux";
-// import { configureStore } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 
-import imagesReducer from "./reducers/images";
+import imagesReducer from "./imagesSlice";
 
-const rootReducer = combineReducers({
-  imagesReducer
+const store = configureStore({
+  reducer: {
+    imagesReducer
+  }
 });
 
-const store = createStore(rootReducer);
-
- export default store;
+export default store;
