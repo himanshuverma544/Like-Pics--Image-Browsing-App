@@ -48,9 +48,12 @@ const Explore = () => {
     const imagesToLoad = results.map(image => {
       const imgReqData = {
         id : image.id,
-        regular : image.urls.regular,
-        thumb : image.urls.thumb,
-        alt : image.alt_description
+        urls : {
+          regular : image.urls.regular,
+          thumb : image.urls.thumb
+        },
+        alt : image.alt_description,
+        likes : image.likes
       }
       return imgReqData;
     });
