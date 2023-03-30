@@ -6,7 +6,6 @@ import Axios from "axios";
 import { Row, Col, Button, Form, Input, InputGroup } from "reactstrap";
 
 // functions
-// import {v4 as getKey} from "uuid";
 import { getImage } from "../functions";
 
 // components
@@ -14,8 +13,7 @@ import ImagesShowCase from "./ImagesShowCase";
 
 // redux
 import { useDispatch } from "react-redux";
-import { searchImages, loadImages } from "../redux/action/action-creators";
-
+import { searchImages, loadImages } from "../redux/imagesSlice";
 
 
 const Explore = () => {
