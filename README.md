@@ -14,6 +14,7 @@ proficiency and showcasing the ability to bring creative concepts to life with c
 
 # Libraries Used
 - redux
+- @reduxjs/toolkit
 - react-router-dom
 - axios
 - firebase
@@ -29,7 +30,9 @@ proficiency and showcasing the ability to bring creative concepts to life with c
 - ES6
 - React Components
 - React Props
-- React Hooks (useState, useref, useCallback)
+- React Hooks (useState, useref, useCallback, useSelector, useDispatch)
+- Redux
+- React Routing
 - Axios and Axios Cancel Token (Manages multiple APIs requests)
 - Firebase Real-Time Database and Storage
 - Cookies (For keeping the user signed in)
