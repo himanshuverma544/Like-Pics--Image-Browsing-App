@@ -1,8 +1,10 @@
 # About
-Developed "Like Pics" - a web app for favourite image-browsing adventures.
-- Allows users to search, view, like and download images.
-- Lets the users access liked images later with ease.
-- Implemented user sign-up functionality and designed a system to keep images organized.
+Designed and developed a dynamic web application for image-browsing adventures, demonstrating
+proficiency and showcasing the ability to bring creative concepts to life with clean, efficient code.
+
+- Empowered users to search, view, like and download images from the library of over 3.48 million photos.
+- Implemented a user-friendly feature that enables users to access their liked images effortlessly.
+- Developed a streamlined user sign-up functionality and implemented an effective system to organize images.
 
 # Technology Used
 - React
@@ -12,6 +14,7 @@ Developed "Like Pics" - a web app for favourite image-browsing adventures.
 
 # Libraries Used
 - redux
+- @reduxjs/toolkit
 - react-router-dom
 - axios
 - firebase
@@ -27,7 +30,9 @@ Developed "Like Pics" - a web app for favourite image-browsing adventures.
 - ES6
 - React Components
 - React Props
-- React Hooks (useState, useref, useCallback)
+- React Hooks (useState, useref, useCallback, useSelector, useDispatch)
+- Redux
+- React Routing
 - Axios and Axios Cancel Token (Manages multiple APIs requests)
 - Firebase Real-Time Database and Storage
 - Cookies (For keeping the user signed in)
