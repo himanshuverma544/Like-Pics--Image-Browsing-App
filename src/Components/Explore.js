@@ -1,9 +1,10 @@
 // react hooks
-import React, { useState, useRef, useCallback, memo } from "react";
+import React, { useState, useRef, useCallback, memo, startTransition } from "react";
 
 import Axios from "axios";
 
 import { Row, Col, Button, Form, Input, InputGroup } from "reactstrap";
+import { BsSearch } from "react-icons/bs";
 
 // functions
 import { getImage } from "../functions";
@@ -14,35 +15,44 @@ import ImagesShowCase from "./ImagesShowCase";
 // redux
 import { useDispatch } from "react-redux";
 import { searchImages, loadImages } from "../redux/imagesSlice";
+import axios from "axios";
 
 
 const Explore = () => {
 
-  const [searchQuery, setSearchQuery] = useState("");
-
-  const metaValues = useRef({
-    searchValue : "",
-    loadPageNo : 1
+  const axiosVals = useRef({
+    loadPageNo : 1,
+    cancelToken : null
   });
   const loadBtnNode = useRef(null);
   const msgUserNode = useRef(null);
+  const searchValueNode = useRef(null);
 
   const dispatch = useDispatch();
 
-    
+
   const fetchPhotos = useCallback(async () => {
+
+    if (axiosVals.current.cancelToken !== null) {
+      axiosVals.current.cancelToken.cancel();
+    }
+
+    axiosVals.current.cancelToken = axios.CancelToken.source(); 
 
     const URL = "https://api.unsplash.com/search/photos";
 
     const { data: {results} } = await Axios.get(URL, {
       params: {
-        query: metaValues.current.searchValue,
-        page: metaValues.current.loadPageNo,
+        query: searchValueNode.current.value,
+        page: axiosVals.current.loadPageNo,
         per_page: 20,
-        client_id: process.env.REACT_APP_API_ACCESS_KEY
-      }
+        client_id: process.env.UNSPLASH_API_ACCESS_KEY
+      },
+      cancelToken: axiosVals.current.cancelToken.token
     });
     
+    axiosVals.current.cancelToken = null;
+
     loadBtnNode.current.style.display = results.length ? "block" : "none";
 
     const imagesToLoad = results.map(image => {
@@ -65,7 +75,7 @@ const Explore = () => {
 
   const handleLoadImages = useCallback(async () => {
 
-    ++metaValues.current.loadPageNo;
+    ++axiosVals.current.loadPageNo;
 
     const imagesToLoad = await fetchPhotos();
 
@@ -77,24 +87,21 @@ const Explore = () => {
   const handleSearchImages = useCallback(async (event) => {
 
     event.preventDefault();
-    
-    if (!searchQuery) {
-      return;
-    }
 
-    metaValues.current.searchValue = searchQuery;
-    metaValues.current.loadPageNo = 1;
+    axiosVals.current.loadPageNo = 1;
 
     if (msgUserNode.current) {
       msgUserNode.current.style.display = "none";
       msgUserNode.current = null;
     }
+    
+    try {
+      const imagesToLoad = await fetchPhotos();
+      dispatch(searchImages(imagesToLoad));
+    } 
+    catch(exception) {}
 
-    const imagesToLoad = await fetchPhotos();
-
-    dispatch(searchImages(imagesToLoad));
-
-  }, [searchQuery, fetchPhotos, dispatch]);
+  }, [fetchPhotos, dispatch]);
 
 
   return (
@@ -113,17 +120,25 @@ const Explore = () => {
               <Input
                 type="text"
                 id="search-field"
-                placeholder="Search Photos"
-                value={searchQuery}
-                onChange={event => setSearchQuery(event.target.value)}
+                className="ps-3"
+                innerRef={searchValueNode}
+                placeholder="Search from the library of over 3.48 million plus photos"
+                onChange={event => { startTransition(() => handleSearchImages(event)) }}
                 autoFocus
               />
               <Button
                 className="search-btn"
                 color="danger">
-                  SEARCH
+                  <BsSearch/>
               </Button>
             </InputGroup>
+            <div className="auto-complete">
+              <ul className="ps-0">
+                <li className="ps-3 py-1">cars</li>
+                <li className="ps-3 py-1">bikes</li>
+                <li className="ps-3 py-1">airplanes</li>
+              </ul>
+            </div>
           </Form>
         </Col>
       </Row>
