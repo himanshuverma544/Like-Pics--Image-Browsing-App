@@ -11,6 +11,10 @@ body {
   background-color: #252525;
 }
 
+ul {
+  list-style: none;
+}
+
 .hero-sec h1 {
   color: #FFF;
   font-size: 63px;
@@ -23,11 +27,46 @@ body {
 
 form {
   width: 70%;
+  height: auto;
   margin: 20px auto 50px;
-  border-radius: 8px;
-  border: 2px solid rgb(66, 66, 180);
   color: #000;
   box-shadow: 0 2px 4px 4px rgba(0, 0, 0, 0.5);
+  padding-bottom: 0;
+}
+
+#search-field {
+  border: 2px solid #BB2D3B;
+}
+
+.auto-complete ul {
+  background-color: #FFF;
+  margin-top: 2px;
+  /* border-radius: 8px; */
+}
+
+.auto-complete ul {
+  border-radius: 8px;
+  border: 2px solid #BB2D3B;
+}
+
+.auto-complete ul li:first-child {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.auto-complete ul li:last-child {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.auto-complete ul li:hover {
+  background-color: #BB2D3B;
+  color: #FFF;
+}
+
+#search-field::placeholder {
+  font-style: italic;
+  text-align: center;
 }
 
 .hearts-loading-icon {
