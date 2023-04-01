@@ -19,9 +19,9 @@ const ImagesShowCase = () => {
             {(src, loading) => (
               <div className="image-container position-relative" style={{backgroundColor : randomColor()}}>
                 <Hearts className="hearts-loading-icon ms-3 position-absolute top-0 start-0" style={{ display : loading ? "block" : "none" }} stroke="#000"/>
-                <div class="likes">
+                <div className="likes">
                   <AiOutlineHeart className=" heart-like position-absolute end-50 me-1 bottom-50 fs-4 text-white"/>
-                  <span class="count position-absolute start-50 bottom-50 text-white fw-bold">{imageToDisplay.likes}</span>
+                  <span className="count position-absolute start-50 bottom-50 text-white fw-bold">{imageToDisplay.likes}</span>
                 </div>
                 <img className="image" src={src} alt={imageToDisplay.alt}/>
               </div>
