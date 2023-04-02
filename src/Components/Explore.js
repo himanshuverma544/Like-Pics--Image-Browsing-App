@@ -1,5 +1,5 @@
 // react hooks
-import React, { useState, useRef, useCallback, memo, startTransition } from "react";
+import React, { useState, useEffect ,useRef, useCallback, memo, startTransition } from "react";
 
 import Axios from "axios";
 
@@ -8,36 +8,36 @@ import { BsSearch } from "react-icons/bs";
 
 // functions
 import { getImage } from "../functions";
+import {v4 as getKey} from "uuid";
 
 // components
 import ImagesShowCase from "./ImagesShowCase";
+import AutoSuggestions from "./AutoSuggestions";
 
 // redux
 import { useDispatch } from "react-redux";
 import { searchImages, loadImages } from "../redux/imagesSlice";
-import axios from "axios";
+
 
 
 const Explore = () => {
+
+  const [autoSuggestionsData, setAutoSuggestionsData] = useState([]);
 
   const axiosVals = useRef({
     loadPageNo : 1,
     cancelToken : null
   });
+
+  const autoSuggestNode = useRef(null);
+  const searchValueNode = useRef(null);
   const loadBtnNode = useRef(null);
   const msgUserNode = useRef(null);
-  const searchValueNode = useRef(null);
 
   const dispatch = useDispatch();
 
 
   const fetchPhotos = useCallback(async () => {
-
-    if (axiosVals.current.cancelToken !== null) {
-      axiosVals.current.cancelToken.cancel();
-    }
-
-    axiosVals.current.cancelToken = axios.CancelToken.source(); 
 
     const URL = "https://api.unsplash.com/search/photos";
 
@@ -46,13 +46,10 @@ const Explore = () => {
         query: searchValueNode.current.value,
         page: axiosVals.current.loadPageNo,
         per_page: 20,
-        client_id: process.env.UNSPLASH_API_ACCESS_KEY
+        client_id: process.env.REACT_APP_UNSPLASH_API_ACCESS_KEY
       },
-      cancelToken: axiosVals.current.cancelToken.token
     });
     
-    axiosVals.current.cancelToken = null;
-
     loadBtnNode.current.style.display = results.length ? "block" : "none";
 
     const imagesToLoad = results.map(image => {
@@ -73,6 +70,25 @@ const Explore = () => {
   }, []);
 
 
+  const handleSearchImages = useCallback(async (event = null) => {
+
+    if (event) {
+      event.preventDefault();
+    }
+
+    axiosVals.current.loadPageNo = 1;
+
+    if (msgUserNode.current) {
+      msgUserNode.current.style.display = "none";
+      msgUserNode.current = null;
+    }
+    
+    const imagesToLoad = await fetchPhotos();
+    dispatch(searchImages(imagesToLoad));
+
+  }, [fetchPhotos, dispatch]);
+
+
   const handleLoadImages = useCallback(async () => {
 
     ++axiosVals.current.loadPageNo;
@@ -84,25 +100,114 @@ const Explore = () => {
   }, [fetchPhotos, dispatch]);
 
 
-  const handleSearchImages = useCallback(async (event) => {
+  useEffect(() => {
 
-    event.preventDefault();
-
-    axiosVals.current.loadPageNo = 1;
-
-    if (msgUserNode.current) {
-      msgUserNode.current.style.display = "none";
-      msgUserNode.current = null;
+    function hideAutoSuggsOnOutsideClick() {
+      document.addEventListener("click", event => {
+        if (event.target.closest(".auto-complete") === null) {
+          autoSuggestNode.current.style.display = "none";
+        }
+      });
     }
-    
-    try {
-      const imagesToLoad = await fetchPhotos();
-      dispatch(searchImages(imagesToLoad));
+
+    hideAutoSuggsOnOutsideClick();
+
+  }, []);
+
+
+  const handleSelectedSuggestion = useCallback(event => {
+
+    const selectedSuggestion = event.target.closest("li");
+    searchValueNode.current.value  = selectedSuggestion.textContent;
+    handleSearchImages();
+    autoSuggestNode.current.style.display = "none";
+
+  }, [handleSearchImages])
+
+
+  const getAutoSuggestions = useCallback(async () => {
+
+    async function getAutoSuggestionsUtility() {
+      try {
+        if (axiosVals.current.cancelToken !== null) {
+          axiosVals.current.cancelToken.cancel();
+        }
+        
+        axiosVals.current.cancelToken = Axios.CancelToken.source(); 
+
+        const URL = "https://api.bing.microsoft.com/v7.0/images/search";
+
+        let  { data: { queryExpansions, pivotSuggestions: [{ suggestions: pivotSuggs }], relatedSearches } } = await Axios.get(URL, {
+          headers: {
+            'Ocp-Apim-Subscription-Key': process.env.REACT_APP_IMAGE_SEARCH_SUGGESTIONS_API_KEY
+          },
+          params: {
+            q: searchValueNode.current.value,
+            count: 1,
+            safeSearch: "Strict"
+          },
+          cancelToken: axiosVals.current.cancelToken.token
+        });
+
+        axiosVals.current.cancelToken = null;
+      
+        let autoCompSuggesObjsArr = [];
+
+        [queryExpansions, pivotSuggs, relatedSearches].forEach(dataArr => {
+          if (dataArr) {
+            autoCompSuggesObjsArr = [...dataArr];
+          }
+        });
+
+        const autoCompSuggesArr = [];
+
+        for ( let i = 0,
+              counter = 0,
+              limit = 10,
+              searchValue = searchValueNode.current.value.toLowerCase();
+              i < autoCompSuggesObjsArr.length;
+              i++
+        ) {
+            if (counter >= limit) {
+              break;
+            }
+
+            const { text } = autoCompSuggesObjsArr[i];
+
+            if (text.toLowerCase().includes(searchValue)) {
+              const suggestion = {
+                id: getKey(),
+                text
+              }
+              autoCompSuggesArr.push(suggestion);
+              counter++;
+            }
+          }
+
+        setAutoSuggestionsData(autoCompSuggesArr);
+        autoSuggestNode.current.style.display = "block";
+
+      } catch (exception) {}
     } 
-    catch(exception) {}
 
-  }, [fetchPhotos, dispatch]);
+    if (searchValueNode.current !== null) {
+      if (searchValueNode.current.value.length) {
+        await getAutoSuggestionsUtility();
+      } 
+      else {
+        setTimeout(() => {
+          autoSuggestNode.current.style.display = "none";
+        }, 1000);
+      }
+    }
 
+  }, []);
+
+  //TODO:
+  // key functionality
+  // on the top of images functionality
+  // api handling
+  // corner cases
 
   return (
     <div>
@@ -122,8 +227,10 @@ const Explore = () => {
                 id="search-field"
                 className="ps-3"
                 innerRef={searchValueNode}
+                onChange={() => getAutoSuggestions()}
+                onFocus={() => getAutoSuggestions()}
+                autoComplete="off"
                 placeholder="Search from the library of over 3.48 million plus photos"
-                onChange={event => { startTransition(() => handleSearchImages(event)) }}
                 autoFocus
               />
               <Button
@@ -132,13 +239,11 @@ const Explore = () => {
                   <BsSearch/>
               </Button>
             </InputGroup>
-            <div className="auto-complete">
-              <ul className="ps-0">
-                <li className="ps-3 py-1">cars</li>
-                <li className="ps-3 py-1">bikes</li>
-                <li className="ps-3 py-1">airplanes</li>
-              </ul>
-            </div>
+            <AutoSuggestions
+              customRef={autoSuggestNode}
+              suggestions={autoSuggestionsData}
+              selectedSuggestion={handleSelectedSuggestion}
+            />
           </Form>
         </Col>
       </Row>
