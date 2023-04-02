@@ -38,15 +38,16 @@ form {
   border: 2px solid #BB2D3B;
 }
 
-.auto-complete ul {
-  background-color: #FFF;
-  margin-top: 2px;
-  /* border-radius: 8px; */
+.auto-complete {
+  display: none;
 }
 
 .auto-complete ul {
-  border-radius: 8px;
+  margin-top: 2px;
   border: 2px solid #BB2D3B;
+  background-color: #FFF;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 .auto-complete ul li:first-child {
