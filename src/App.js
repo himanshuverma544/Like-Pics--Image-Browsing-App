@@ -1,4 +1,3 @@
-import { Container } from "reactstrap";
 import "react-toastify/dist/ReactToastify.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -12,9 +11,7 @@ function App() {
   
   return (
     <Provider store={store}>
-      <Container className="py-5">
-        <Explore/>
-      </Container>
+      <Explore/>
     </Provider>
   );
 }
