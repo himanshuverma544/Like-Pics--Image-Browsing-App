@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Col } from "reactstrap";
 import ProgressiveImage from "react-progressive-graceful-image";
 import { Hearts } from "react-loading-icons";
-import {AiOutlineHeart, AiFillHeart} from "react-icons/ai";
+import { AiOutlineHeart, /*AiFillHeart*/ } from "react-icons/ai";
 import randomColor from "randomcolor";
 
 
