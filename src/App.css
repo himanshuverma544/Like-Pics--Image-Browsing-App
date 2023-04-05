@@ -20,9 +20,9 @@ ul {
   font-size: 63px;
 }
 
-.hero-sec img {
-  width: 80px;
-  height: 80px;
+.hero-sec .app-icon {
+  width: 70px;
+  height: 75px;
 }
 
 form {
@@ -34,11 +34,19 @@ form {
   padding-bottom: 0;
 }
 
+@media screen and (max-width: 992px) {
+  form {
+    width: auto;
+  }
+}
+
 #search-field {
   border: 2px solid #BB2D3B;
 }
 
 .auto-complete {
+  width: 100%;
+  z-index: 2;
   display: none;
 }
 
