@@ -175,7 +175,6 @@ const AutoSuggestions =
     <div className="auto-complete position-absolute" ref={autoSuggestNode}>
       <ul className="ps-0"
         onClick={event => handleSelectedSuggestion(event)}
-        // onKeyDown={event => moveOverSuggestions(event)}
       >
         {autoSuggestionsData.map(autoSuggestionData => 
           <li key={autoSuggestionData.id} className="ps-3 py-1">{autoSuggestionData.text}</li>
@@ -187,7 +186,7 @@ const AutoSuggestions =
 
 export default memo(AutoSuggestions);
 
-  //TODO:
+  // TODOs:
   // key functionality
   // api handling (x)
   // corner cases ():
