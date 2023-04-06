@@ -12,8 +12,9 @@ import { BsSearch } from "react-icons/bs";
 import { memoGetImage, memoTypewriter } from "../functions";
 
 // components
-import ImagesShowCase from "./ImagesShowCase";
+import ThemeSwitcher from "./ThemeSwitcher";
 import AutoSuggestions from "./AutoSuggestions";
+import ImagesShowCase from "./ImagesShowCase";
 
 // redux
 import { useDispatch } from "react-redux";
@@ -105,13 +106,12 @@ const Explore = () => {
 
 
   return (
-    
       <Container className="py-5">
         <Row>
           <div className="hero-sec d-flex justify-content-center align-items-center position-relative">
             <h1 className="me-3">Like Pics</h1>
             <img className="app-icon" src={memoGetImage("like-icon.png")} alt="Like Icon"/>
-            <img className="theme-switch-icon position-absolute end-0 h-50" src={memoGetImage("light-theme-icon.png")} alt="Theme Icon"/>
+            <ThemeSwitcher/>
           </div>
         </Row>
 
