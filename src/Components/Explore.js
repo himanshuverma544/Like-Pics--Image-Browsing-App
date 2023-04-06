@@ -1,13 +1,15 @@
 // react hooks
-import React, { useState, useRef, useCallback, memo } from "react";
+import { useState, useRef, useCallback, memo } from "react";
 
+// libraries
 import Axios from "axios";
 
+// frontend libraries
 import { Container, Row, Col, Button, Form, Input, InputGroup } from "reactstrap";
 import { BsSearch } from "react-icons/bs";
 
 // functions
-import { getImage } from "../functions";
+import { memoGetImage, memoTypewriter } from "../functions";
 
 // components
 import ImagesShowCase from "./ImagesShowCase";
@@ -16,6 +18,9 @@ import AutoSuggestions from "./AutoSuggestions";
 // redux
 import { useDispatch } from "react-redux";
 import { searchImages, loadImages } from "../redux/imagesSlice";
+
+// data
+import popularImageSearchWords from "../assets/arrays/popularImageSearchWords";
 
 
 
@@ -104,9 +109,9 @@ const Explore = () => {
       <Container className="py-5">
         <Row>
           <div className="hero-sec d-flex justify-content-center align-items-center position-relative">
-            <h1 className="me-3">Like-Pics</h1>
-            <img className="app-icon" src={getImage("like-icon.png")} alt="Like Icon"/>
-            <img className="theme-switch-icon position-absolute end-0 h-50" src={getImage("brightness (3).png")} alt="Theme Icon"/>
+            <h1 className="me-3">Like Pics</h1>
+            <img className="app-icon" src={memoGetImage("like-icon.png")} alt="Like Icon"/>
+            <img className="theme-switch-icon position-absolute end-0 h-50" src={memoGetImage("light-theme-icon.png")} alt="Theme Icon"/>
           </div>
         </Row>
 
@@ -119,9 +124,15 @@ const Explore = () => {
                   id="search-field"
                   className="ps-3"
                   innerRef={searchValueNode}
-                  onChange={event => setSearchQuery(event.target.value)}
+                  onChange={event => setSearchQuery(event.target.value.trim())}
                   autoComplete="off"
-                  placeholder="Search from the library of over 3.48 million plus photos"
+                  placeholder={
+                    memoTypewriter({
+                      leftStaticStr: "Search for ", 
+                      words: popularImageSearchWords, 
+                      rightStaticStr: " from the library of over 3.48 million plus photos",
+                    })
+                  }
                   autoFocus
                 />
                 <Button
