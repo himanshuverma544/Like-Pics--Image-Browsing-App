@@ -102,7 +102,7 @@ const AutoSuggestions =
       autoSuggestNode.current.style.display = "block";
     }
     catch (exception) {
-      // console.log(`Previous API request ${exception.message}`);
+      // console.log(exception.message);
     }
 
   }, [searchQuery, limit]);
@@ -110,12 +110,13 @@ const AutoSuggestions =
 
   const getAutoSuggestionsUtility = useCallback(event => {
 
-    if ((event.type === "keyup" && 
-      ((event.key >= 'A' && event.key <= 'Z') || 
-      (event.key >= 'a' && event.key <= 'z') || 
-      (event.key >= '0' && event.key <= '9') ||
-      event.key === ' ' || event.key === "Backspace")) ||
-      event.type === "focus") {
+    if (event.type === "keyup" && event.key === "Enter") {
+      autoSuggestNode.current.style.display = "none";
+    }
+    else if ((event.type === "keyup" && 
+      ((event.key >= 'A' && event.key <= 'Z') || (event.key >= 'a' && event.key <= 'z') || 
+      (event.key >= '0' && event.key <= '9') || event.key === ' ' || event.key ==="Backspace")) 
+      || event.type === "focus") {
 
       if (searchQuery.length > 1) {
         getAutoSuggestions();
@@ -123,12 +124,9 @@ const AutoSuggestions =
       else if (searchQuery.length <= 1 ) {
         autoSuggestNode.current.style.display = "none";    
       }
-      else if (event.key === "Enter") {
-        searchValueNode.current.blur(); // TODO: Not Working
-        autoSuggestNode.current.style.display = "none";
-      }
     }
-  }, [searchQuery, searchValueNode, getAutoSuggestions]);
+
+  }, [searchQuery, getAutoSuggestions]);
 
 
   useEffect(() => {
@@ -191,5 +189,6 @@ export default memo(AutoSuggestions);
 
   //TODO:
   // key functionality
-  // api handling
-  // corner cases
+  // api handling (x)
+  // corner cases ():
+  // - keep the autosuggestion box hidden if there is no suggestion return by the api
