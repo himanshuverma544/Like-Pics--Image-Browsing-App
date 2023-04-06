@@ -44,6 +44,11 @@ form {
   border: 2px solid #BB2D3B;
 }
 
+#search-field::placeholder {
+  font-style: italic;
+  text-align: center;
+}
+
 .auto-complete {
   width: 100%;
   z-index: 2;
@@ -71,11 +76,6 @@ form {
 .auto-complete ul li:hover {
   background-color: #BB2D3B;
   color: #FFF;
-}
-
-#search-field::placeholder {
-  font-style: italic;
-  text-align: center;
 }
 
 .hearts-loading-icon {
