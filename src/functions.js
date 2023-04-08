@@ -4,7 +4,7 @@ function sleep(ms) {
 
 function typeWriter({leftStaticStr = "", words, rightStaticStr = "", speed = 100, cursor = ''}) {
 
-  let currentWordIndex = 0;
+  let currentWordIndex = Math.floor(Math.random() * words.length);
   let currentLetterIndex = 0;
   let isDeleting = false;
 
@@ -71,7 +71,7 @@ function memoFunc(func) {
   };
 }
 
-const memoTypewriter = memoFunc(typeWriter); // TODO: Function optimization
+const memoTypewriter = memoFunc(typeWriter); // TODO: Function optimization : should run only when in use
 const memoGetImage = memoFunc(getImage);
 
 export { memoTypewriter, memoGetImage };
