@@ -1,7 +1,7 @@
 // react hooks
 import { useState, useRef, useCallback, memo } from "react";
 
-// libraries
+// remote-data management libraries
 import Axios from "axios";
 
 // frontend libraries
@@ -64,7 +64,8 @@ const Explore = () => {
           thumb : image.urls.thumb
         },
         alt : image.alt_description,
-        likes : image.likes
+        likes : image.likes,
+        download: image.links.download
       }
       return imgReqData;
     });
