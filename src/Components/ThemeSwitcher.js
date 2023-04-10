@@ -1,4 +1,5 @@
 import { useState, useEffect, memo } from "react";
+import { Row, Col } from "reactstrap";
 import { memoGetImage } from "../functions";
 import getThemeStyles from "../assets/objects/getThemeStyles";
 
@@ -30,15 +31,19 @@ const ThemeSwitcher = () => {
   }, [currentTheme]);
 
   return (
-    <img
-      className="theme-switch-icon position-absolute end-0 h-50"
-      src={memoGetImage(currentTheme.img.name)}
-      alt={currentTheme.img.alt}
-      style={{ cursor: "pointer" }}
-      onClick={() =>
-        setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"))
-      }
-    />
+    <Row>
+      <Col md={12}>
+        <img
+          className="theme-switch-icon"
+          src={memoGetImage(currentTheme.img.name)}
+          alt={currentTheme.img.alt}
+          style={{ cursor: "pointer" }}
+          onClick={() =>
+            setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"))
+          }
+        />
+      </Col>
+    </Row>
   );
 };
 
