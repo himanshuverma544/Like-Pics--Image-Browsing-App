@@ -30,7 +30,7 @@ proficiency and showcasing the ability to bring creative concepts to life with c
 - ES6
 - React Components
 - React Props
-- React Hooks (useState, useref, useCallback, useSelector, useDispatch)
+- React Hooks (useState, useRef, useCallback, useSelector, useDispatch)
 - Redux
 - React Routing
 - Axios and Axios Cancel Token (Manages multiple APIs requests)
