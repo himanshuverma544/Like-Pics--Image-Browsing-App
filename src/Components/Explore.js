@@ -64,8 +64,15 @@ const Explore = () => {
           thumb : image.urls.thumb
         },
         alt : image.alt_description,
+        actions: {
         likes : image.likes,
         download: image.links.download
+        },
+        photographer: {
+          fullName: image.user.name,
+          profile: `${image.user.links.html}/?utm_source=like_pics&utm_medium=referral`
+        },
+        unsplashUrl: "https://unsplash.com/?utm_source=like_pics&utm_medium=referral"
       }
       return imgReqData;
     });
@@ -107,13 +114,17 @@ const Explore = () => {
 
 
   return (
-      <Container className="py-5">
+      <Container className="py-3">
+       
+        <ThemeSwitcher/>
+
         <Row>
-          <div className="hero-sec d-flex justify-content-center align-items-center position-relative">
-            <h1 className="me-3">Like Pics</h1>
-            <img className="app-icon" src={memoGetImage("like-icon.png")} alt="Like Icon"/>
-            <ThemeSwitcher/>
-          </div>
+          <Col md={12}>
+            <div className="hero-sec d-flex justify-content-center align-items-center position-relative">
+              <h1 className="me-3">Like Pics</h1>
+              <img className="app-icon" src={memoGetImage("like-icon.png")} alt="Like Icon"/>
+            </div>
+          </Col>
         </Row>
 
         <Row>
@@ -153,30 +164,33 @@ const Explore = () => {
           </Col>
         </Row>
 
-        <Row className="images-showcase">
-          <ImagesShowCase/>
-        </Row>
-        
+        <ImagesShowCase/>
+          
         <Row>
-          <Button
-            className="load-btn px-5 mx-auto mt-5"
-            color="danger"
-            innerRef={loadBtnNode}
-            onClick={() => handleLoadImages()}>
-              Load More
-          </Button>
+          <Col md={12}>
+            <Button
+              className="load-btn px-5 mx-auto mt-5"
+              color="danger"
+              innerRef={loadBtnNode}
+              onClick={() => handleLoadImages()}>
+                Load More
+            </Button>
+          </Col>
         </Row>
 
         <Row>
-          <div className="msg-user" ref={msgUserNode}>
-            <h6>Hi, some features of this app are still under development.</h6>
-            <h6>In the meantime, feel free to use and enjoy the built features.</h6>
-            <h6>Thanks for your cooperation.</h6>
-          </div>
+          <Col md={12}>
+            <div className="msg-user" ref={msgUserNode}>
+              <h6>Hi, some features of this app are still under development.</h6>
+              <h6>In the meantime, feel free to use and enjoy the built features.</h6>
+              <h6>Thanks for your cooperation.</h6>
+            </div>
+          </Col>
         </Row>
     </Container>
-
   );
 };
 
 export default memo(Explore);
+
+// TODO: link in placeholder
