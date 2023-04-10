@@ -41,3 +41,6 @@ proficiency and showcasing the ability to bring creative concepts to life with c
 
 # Deployed On
 - GitHub Pages
+
+# Attribution
+- Theme Icon by <a href="https://www.flaticon.com/authors/graphixs-art" target="_blank">Graphix's Art</a>
