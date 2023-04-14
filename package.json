@@ -26,6 +26,7 @@
   },
   "homepage": "https://himanshuverma544.github.io/Like-Pics",
   "scripts": {
+    "dev": "webpack serve --mode development --watch",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
