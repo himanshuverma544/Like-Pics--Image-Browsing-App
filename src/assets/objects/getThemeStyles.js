@@ -7,11 +7,21 @@ const getThemeStyles = {
     heading: {
       textColor: "#000",
     },
-    img: {
-      name: "dark-theme-icon.png",
-      alt: "dark theme icon"
+    themeIcon: {
+      fill: "#000"
+    },
+    btnsPanelOpenIcon: {
+      backgroundColor: "#FFF",
+      stroke: "#252525"
+    },
+    btnsPanelBtns: {
+      backgroundColor: "#FFF",
+    },
+    btnsPanelBtnsIcons: {
+      fill: "#000"
     }
   },
+
   dark: {
     body: {
       backgroundColor: "#252525"
@@ -19,11 +29,21 @@ const getThemeStyles = {
     heading: {
       textColor: "#FFF",
     },
-    img: {
-      name: "light-theme-icon.png",
-      alt: "light theme icon"
+    themeIcon: {
+      fill: "#FFF"
+    },
+    btnsPanelOpenIcon: {
+      backgroundColor: "#252525",
+      stroke: "#FFF"
+    },
+    btnsPanelBtns: {
+      backgroundColor: "#252525",
+    },
+    btnsPanelBtnsIcons: {
+      fill: "#FFF"
     }
   }
+  
 }
 
 export default getThemeStyles;
