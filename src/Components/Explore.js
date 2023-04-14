@@ -7,11 +7,13 @@ import Axios from "axios";
 // frontend libraries
 import { Container, Row, Col, Button, Form, Input, InputGroup } from "reactstrap";
 import { BsSearch } from "react-icons/bs";
+import { RiArrowUpSLine } from "react-icons/ri";
 
 // functions
 import { memoGetImage, memoTypewriter } from "../functions";
 
 // components
+import ButtonsPanel from "./ButtonsPanel";
 import ThemeSwitcher from "./ThemeSwitcher";
 import AutoSuggestions from "./AutoSuggestions";
 import ImagesShowCase from "./ImagesShowCase";
@@ -92,7 +94,7 @@ const Explore = () => {
     vals.current.loadPageNo = 1;
 
     if (msgUserNode.current) {
-      msgUserNode.current.style.display = "none";
+      document.querySelector(".row-msg-user").style.display = "none";
       msgUserNode.current = null;
     }
     
@@ -114,8 +116,9 @@ const Explore = () => {
 
 
   return (
+    <>
       <Container className="py-3">
-       
+      
         <ThemeSwitcher/>
 
         <Row>
@@ -138,13 +141,13 @@ const Explore = () => {
                   innerRef={searchValueNode}
                   onChange={event => setSearchQuery(event.target.value.trim())}
                   autoComplete="off"
-                  placeholder={
-                    memoTypewriter({
-                      leftStaticStr: "Search for ", 
-                      words: popularImageSearchWords, 
-                      rightStaticStr: " from the library of over 3.48 million plus photos",
-                    })
-                  }
+                  // placeholder={
+                  //   memoTypewriter({
+                  //     leftStaticStr: "Search for ", 
+                  //     words: popularImageSearchWords, 
+                  //     rightStaticStr: " from the library of over 3.48 million plus photos",
+                  //   })
+                  // }
                   autoFocus
                 />
                 <Button
@@ -154,12 +157,12 @@ const Explore = () => {
                   <BsSearch/>
                 </Button>
               </InputGroup>
-              <AutoSuggestions
+              {/* <AutoSuggestions
                 states={{searchQuery, setSearchQuery}}
                 nodes={{searchValueNode}}
                 variables={{limit: 5}}
                 functions={{handleSearchImages}}
-              />
+              /> */}
             </Form>
           </Col>
         </Row>
@@ -177,8 +180,17 @@ const Explore = () => {
             </Button>
           </Col>
         </Row>
-
+        
         <Row>
+          <Col>
+            <div className="btns-panel-container d-flex justify-content-center">
+              <RiArrowUpSLine className="open-icon"/>
+              <ButtonsPanel/>
+            </div>
+          </Col>
+        </Row>
+
+        <Row className="row-msg-user">
           <Col md={12}>
             <div className="msg-user" ref={msgUserNode}>
               <h6>Hi, some features of this app are still under development.</h6>
@@ -188,6 +200,7 @@ const Explore = () => {
           </Col>
         </Row>
     </Container>
+  </>
   );
 };
 
