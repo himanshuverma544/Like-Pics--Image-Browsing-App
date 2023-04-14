@@ -38,7 +38,7 @@ const ButtonsPanel = () => {
         <Button className="saved panel-btn ms-1">
           <MdOutlineBookmarkAdded className="panel-icon"/>
         </Button>
-        <Button className="theme panel-btn ms-1" onClick={triggerThemeSwitcher}>
+        <Button className="theme panel-btn ms-1">
           <MdOutlineLightMode className="panel-icon"/>
         </Button>
         <Button className="up panel-btn ms-1">
