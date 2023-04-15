@@ -40,7 +40,7 @@ const Explore = () => {
   const loadBtnNode = useRef(null);
   const msgUserNode = useRef(null);
 
-  const dispatch = useDispatch();
+  const imagesDispatch = useDispatch();
 
 
   const fetchPhotos = useCallback(async () => {
@@ -99,9 +99,9 @@ const Explore = () => {
     }
     
     const imagesToLoad = await fetchPhotos();
-    dispatch(searchImages(imagesToLoad));
+    imagesDispatch(searchImages(imagesToLoad));
 
-  }, [searchQuery, fetchPhotos, dispatch]);
+  }, [searchQuery, fetchPhotos, imagesDispatch]);
 
 
   const handleLoadImages = useCallback(async () => {
@@ -110,9 +110,9 @@ const Explore = () => {
 
     const imagesToLoad = await fetchPhotos();
 
-    dispatch(loadImages(imagesToLoad));
+    imagesDispatch(loadImages(imagesToLoad));
 
-  }, [fetchPhotos, dispatch]);
+  }, [fetchPhotos, imagesDispatch]);
 
 
   return (
