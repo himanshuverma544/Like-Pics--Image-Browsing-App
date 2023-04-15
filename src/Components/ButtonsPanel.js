@@ -1,7 +1,8 @@
-import { useCallback } from "react";
-import { useSelector } from "react-redux";
+import { useContext } from "react";
 
-import  { Row, Col, Button } from "reactstrap";
+import globalDataContext from "../contextAPI/globalData/context";
+
+import  { Button } from "reactstrap";
 import { 
   MdOutlineExplore, MdExplore, 
   MdOutlineBookmarkAdded, MdBookmarkAdded,
@@ -16,15 +17,7 @@ from "react-icons/ri";
 
 const ButtonsPanel = () => {
 
-  // const check = useSelector(state => state.globalDataReducer);
-
-  // console.log(check);
-
-
-
-  // const triggerThemeSwitcher = useCallback(() => {
-
-  // });
+  const { globalData: {states} } = useContext(globalDataContext);
 
   return(
     <div className="btns-panel">
