@@ -1,7 +1,7 @@
-import { useState, useEffect, memo, useRef } from "react";
+import { useState, useEffect, useRef, useContext, memo } from "react";
 
-import { useDispatch } from "react-redux";
-import { statesInStore, nodesInStore, variablesInStore, functionsInStore } from "../redux/globalDataSlice";
+import globalDataContext from "../contextAPI/globalData/context";
+import { statesInStore } from "../contextAPI/globalData/action.creators";
 
 import { Row, Col } from "reactstrap";
 import { MdOutlineLightMode, MdOutlineNightlight } from "react-icons/md";
@@ -18,7 +18,7 @@ const ThemeSwitcher = () => {
 
   const themeNode = useRef(null);
 
-  const dispatch = useDispatch();
+  const { dispatch } = useContext(globalDataContext);
 
 
   useEffect(() => {
