@@ -30,7 +30,7 @@ const ImagesShowCase = () => {
 
   return (
     <Row className="images-showcase">
-      {imagesToDisplay.map(imageToDisplay => (
+      {imagesToDisplay.length && imagesToDisplay.map(imageToDisplay => (
         <Col className="py-1 px-1 d-flex justify-content-center" key={imageToDisplay.id} sm={6} md={4} lg={3}>
           <ProgressiveImage src={imageToDisplay.urls.regular} placeholder={imageToDisplay.urls.thumb}>
             {(src, loading) => (
