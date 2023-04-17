@@ -15,7 +15,12 @@ const getThemeStyles = {
       stroke: "#252525"
     },
     btnsPanelBtns: {
-      backgroundColor: "#FFF",
+      default: {
+        backgroundColor: "#FFF",
+      },
+      onHover: {
+        backgroundColor: "#BFBFBF"
+      }
     },
     btnsPanelBtnsIcons: {
       fill: "#000"
@@ -37,7 +42,12 @@ const getThemeStyles = {
       stroke: "#FFF"
     },
     btnsPanelBtns: {
-      backgroundColor: "#252525",
+      default: {
+        backgroundColor: "#252525",
+      },
+      onHover: {
+        backgroundColor: "#6c757d"
+      }
     },
     btnsPanelBtnsIcons: {
       fill: "#FFF"
