@@ -16,8 +16,8 @@ const AutoSuggestions = ({
     cancelToken: null,
   });
 
-  const handleSelectedSuggestion = useCallback(
-    (event) => {
+  const handleSelectedSuggestion = useCallback((event) => {
+    
       const selectedSuggestion = event.target.closest(".auto-complete ul li");
       searchValueNode.current.value = selectedSuggestion.textContent;
       handleSearchImages(null, selectedSuggestion.textContent);
