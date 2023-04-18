@@ -1,48 +1,33 @@
-import { STORE_STATES, STORE_NODES, STORE_VARIABLES, STORE_FUNCTIONS } from "./action.types";
+import { STORE_IN_GLOBAL_DATA } from "./action.types";
 
-const initialState = {
-  states: {},
-  nodes: {},
-  variables: {},
-  functions: {}
-}
+const initialState = {};
 
 const globalDataReducer = (state = initialState, action) => {
-
+  
   switch (action.type) {
+ 
+    case STORE_IN_GLOBAL_DATA:
 
-    case STORE_STATES:
-      return {
-        ...state,
-        states: {
-          ...state.states,
-          ...action.payload
-        }
-      };
-    case STORE_NODES:
-      return {
-        ...state,
-        nodes: {
-          ...state.nodes,
-          ...action.payload
-        }
-      };
-    case STORE_VARIABLES:
-      return {
-        ...state,
-        variables: {
-          ...state.variables,
-          ...action.payload
-        }
-      };
-    case STORE_FUNCTIONS:
-      return {
-        ...state,
-        functions: {
-          ...state.functions,
-          ...action.payload
-        }
-      };
+    const { component, typeOfData, data: newData } = action.payload;
+
+    if (!state[component]) {
+      state[component] = {};
+    }
+
+    if (!state[component][typeOfData]) {
+      state[component][typeOfData] = {};
+    }
+
+    return {
+      ...state,
+      [component]: {
+        ...state[component], [typeOfData]: {
+          ...state[component][typeOfData], ...newData
+        },
+      },
+      triggered: component     
+    }
+         
     default:
       return state;
   }
