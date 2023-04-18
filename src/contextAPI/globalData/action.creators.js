@@ -1,21 +1,25 @@
-import { STORE_STATES, STORE_NODES, STORE_VARIABLES, STORE_FUNCTIONS } from "./action.types";
+import { STORE_IN_GLOBAL_DATA, INVALID_TYPE_OF_DATA } from "./action.types";
 
-export const statesInStore = state => ({
-    type: STORE_STATES,
-    payload: state
-});
+const storeInGlobalData = (data, typeOfData, component) => {
+  
+  const dataAllowed = ["states", "nodes", "objects", "arrays", "refVars", "vars"];
+  let actionType = INVALID_TYPE_OF_DATA;
 
-export const nodesInStore = node => ({
-  type: STORE_NODES,
-  payload: node
-});
+  for (let data of dataAllowed) {
+    if (data === typeOfData) {
+      actionType = STORE_IN_GLOBAL_DATA;
+      break;
+    }
+  }
 
-export const variablesInStore = variable => ({
-  type: STORE_VARIABLES,
-  payload: variable
-});
+  return {
+    type: actionType,
+    payload: {
+      component,
+      typeOfData,
+      data
+    }
+  }
+};
 
-export const functionsInStore = theFunction => ({
-  type: STORE_FUNCTIONS,
-  payload: theFunction
-});
+export { storeInGlobalData };
