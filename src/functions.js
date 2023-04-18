@@ -71,6 +71,7 @@ function memoFunc(func) {
   };
 }
 
+
 const memoTypewriter = memoFunc(typeWriter); // TODO: Function optimization : should run only when in use
 const memoGetImage = memoFunc(getImage);
 
