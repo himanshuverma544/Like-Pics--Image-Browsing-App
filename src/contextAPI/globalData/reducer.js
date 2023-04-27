@@ -1,36 +1,23 @@
-import { STORE_IN_GLOBAL_DATA } from "./action.types";
+import { STORE_DATA } from "./action.types";
 
-const initialState = {};
-
-const globalDataReducer = (state = initialState, action) => {
+const dataReducer = (state, action) => {
   
+  const { typeOfData, data: newData } = action.payload;
+
   switch (action.type) {
- 
-    case STORE_IN_GLOBAL_DATA:
 
-    const { component, typeOfData, data: newData } = action.payload;
-
-    if (!state[component]) {
-      state[component] = {};
-    }
-
-    if (!state[component][typeOfData]) {
-      state[component][typeOfData] = {};
-    }
-
-    return {
-      ...state,
-      [component]: {
-        ...state[component], [typeOfData]: {
-          ...state[component][typeOfData], ...newData
+    case STORE_DATA:
+      return {
+        ...state,
+        [typeOfData]: {
+          ...state[typeOfData], ...newData
         },
-      },
-      triggered: component     
-    }
-         
+        triggered: true
+      }
+
     default:
       return state;
   }
-};
+}
 
-export default globalDataReducer;
+export default dataReducer;
