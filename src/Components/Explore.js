@@ -26,7 +26,6 @@ import { searchImages, loadImages } from "../redux/imagesSlice";
 import popularImageSearchWords from "../assets/arrays/popularImageSearchWords";
 
 
-
 const Explore = () => {
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -185,7 +184,9 @@ const Explore = () => {
           <Col>
             <div className="btns-panel-container d-flex justify-content-center">
               <RiArrowUpSLine className="open-icon"/>
-              <ButtonsPanel/>
+              <ButtonsPanel 
+                nodes={{ searchValueNode }}
+              />
             </div>
           </Col>
         </Row>
