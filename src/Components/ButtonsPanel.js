@@ -1,4 +1,4 @@
-import { useContext, useCallback, memo } from "react";
+import { useContext, useEffect, useRef, useCallback, memo } from "react";
 
 import { tsContext } from "../contextAPI/globalData/context";
 
@@ -18,29 +18,59 @@ from "react-icons/ri";
 const ButtonsPanel = ({ nodes: { searchValueNode } }) => {
 
   const { tsData: { triggered }, tsData: { states } } = useContext(tsContext);
+
+  const btnsPanelNode = useRef(null);
   
+
+  const isElementInViewport = useCallback(element => {
+    const rect = element.getBoundingClientRect();
+    return rect.top <= 40;
+  }, []);
+
+  const showHideBtnPanel = useCallback(() => {
+    const imagesShowCaseEle = document.querySelector(".images-showcase-row");
+    btnsPanelNode.current.style.display = isElementInViewport(imagesShowCaseEle) ? "block" : "none";
+  }, [btnsPanelNode, isElementInViewport]);
+
+  useEffect(()=> {
+
+    if (triggered) {
+
+      function addingEventListener() {
+        window.addEventListener("scroll", showHideBtnPanel);
+      }
+      addingEventListener();
+
+      return () => {
+        window.removeEventListener("scroll", showHideBtnPanel);
+      }
+    }
+  }, [triggered, showHideBtnPanel]);
+
+
   const switchTheme = useCallback(() => {
     states.setTheme(prevTheme => prevTheme === "dark" ? "light" : "dark");
   }, [states]);
+
 
   const scrollToTop = useCallback(() => 
     window.scrollTo(0,0)
   , []);
 
+
   const search = useCallback(() => {
-    if (triggered) {
-      scrollToTop();
-      searchValueNode.current.focus();
-    }
-  }, [triggered, searchValueNode, scrollToTop]);
+    scrollToTop();
+    searchValueNode.current.focus();
+  }, [searchValueNode, scrollToTop]);
+
 
   return (
     triggered ? (
-      <div className="btns-panel">
+      <div className="btns-panel" ref={btnsPanelNode}>
         <Button className="search panel-btn" onClick={search}>
           <RiSearchLine className="panel-icon"/>
         </Button>
-        <Button className="explore panel-btn ms-1">
+        <Button className="explore panel-btn active ms-1">
           <MdOutlineExplore className="panel-icon"/>
         </Button>
         <Button className="saved panel-btn ms-1">
