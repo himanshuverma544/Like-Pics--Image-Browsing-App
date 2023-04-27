@@ -29,59 +29,57 @@ const ImagesShowCase = () => {
   }, []);
 
   return (
-    imagesToDisplay.length ? (
-      <Row className="images-showcase">
-        {imagesToDisplay.length && imagesToDisplay.map(imageToDisplay => (
-          <Col className="py-1 px-1 d-flex justify-content-center" key={imageToDisplay.id} sm={6} md={4} lg={3}>
-            <ProgressiveImage src={imageToDisplay.urls.regular} placeholder={imageToDisplay.urls.thumb}>
-              {(src, loading) => (
-                <div className="image-container d-flex justify-content-center" style={{backgroundColor : randomColor()}}>
-                  <Hearts className="hearts-loading-icon ms-3" style={{ display : loading ? "block" : "none" }} stroke="#000"/>
-                  <div className="actions-on-img d-flex">
-                    <div className="download">
-                      <a 
-                        href={imageToDisplay.actions.download} 
-                        target="_blank" 
-                        rel="noreferrer" 
-                        onClick={() => incrementDownloads(imageToDisplay.id)}
-                      >
-                        <AiOutlineDownload/>
-                      </a>
-                    </div>
-                    <div className="likes d-flex flex-column align-items-center mt-2 mx-4">
-                      <AiOutlineHeart className="heart-like"/>
-                      <span className="count">{imageToDisplay.actions.likes}</span>
-                    </div>
-                    <div className="save">
-                      <MdOutlineBookmarkAdd/>
-                    </div>
-                  </div>
-                  <div className="attribution p-1">
-                    {"Photo by "} 
+    imagesToDisplay.length ? 
+      imagesToDisplay.map(imageToDisplay => (
+        <Col className="py-1 px-1 d-flex justify-content-center" key={imageToDisplay.id} sm={6} md={4} lg={3}>
+          <ProgressiveImage src={imageToDisplay.urls.regular} placeholder={imageToDisplay.urls.thumb}>
+            {(src, loading) => (
+              <div className="image-container d-flex justify-content-center" style={{backgroundColor : randomColor()}}>
+                <Hearts className="hearts-loading-icon ms-3" style={{ display : loading ? "block" : "none" }} stroke="#000"/>
+                <div className="actions-on-img d-flex">
+                  <div className="download">
                     <a 
-                      href={imageToDisplay.photographer.profile} 
+                      href={imageToDisplay.actions.download} 
                       target="_blank" 
-                      rel="noreferrer"
+                      rel="noreferrer" 
+                      onClick={() => incrementDownloads(imageToDisplay.id)}
                     >
-                      {imageToDisplay.photographer.fullName}
-                    </a> 
-                    {" on "} 
-                    <a 
-                      href={imageToDisplay.unsplashUrl}
-                      target="_blank" 
-                      rel="noreferrer"
-                    >
-                      Unsplash
+                      <AiOutlineDownload/>
                     </a>
                   </div>
-                  <img className="image" src={src} alt={imageToDisplay.alt}/>
+                  <div className="likes d-flex flex-column align-items-center mt-2 mx-4">
+                    <AiOutlineHeart className="heart-like"/>
+                    <span className="count">{imageToDisplay.actions.likes}</span>
+                  </div>
+                  <div className="save">
+                    <MdOutlineBookmarkAdd/>
+                  </div>
                 </div>
-              )}
-            </ProgressiveImage>
-          </Col>
-        ))}    
-      </Row>
-    ) : null
+                <div className="attribution p-1">
+                  {"Photo by "} 
+                  <a 
+                    href={imageToDisplay.photographer.profile} 
+                    target="_blank" 
+                    rel="noreferrer"
+                  >
+                    {imageToDisplay.photographer.fullName}
+                  </a> 
+                  {" on "} 
+                  <a 
+                    href={imageToDisplay.unsplashUrl}
+                    target="_blank" 
+                    rel="noreferrer"
+                  >
+                    Unsplash
+                  </a>
+                </div>
+                <img className="image" src={src} alt={imageToDisplay.alt}/>
+              </div>
+            )}
+          </ProgressiveImage>
+        </Col>
+      ))   
+    : null
   );
 };
 
