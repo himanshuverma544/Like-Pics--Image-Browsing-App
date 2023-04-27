@@ -197,6 +197,10 @@ form {
   display: block;
 }
 
+.btns-panel .theme {
+  height: inherit;
+}
+
 /* .btns-panel .panel-btn {
   border: 1px solid #BB2D3B;
 } */
