@@ -1,5 +1,5 @@
 import { createContext } from "react";
 
-const globalDataContext = createContext();
+const tsContext = createContext();
 
-export default globalDataContext;
+export { tsContext };
