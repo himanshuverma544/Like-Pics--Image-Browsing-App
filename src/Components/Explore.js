@@ -93,7 +93,7 @@ const Explore = () => {
     vals.current.loadPageNo = 1;
 
     if (msgUserNode.current) {
-      document.querySelector(".row-msg-user").style.display = "none";
+      document.querySelector(".msg-user-row").style.display = "none";
       msgUserNode.current = null;
     }
     
@@ -165,9 +165,11 @@ const Explore = () => {
             </Form>
           </Col>
         </Row>
+      
+        <Row className="images-showcase-row">
+          <ImagesShowCase/>
+        </Row>
 
-        <ImagesShowCase/>
-          
         <Row>
           <Col md={12}>
             <Button
@@ -180,10 +182,9 @@ const Explore = () => {
           </Col>
         </Row>
         
-        <Row>
+        <Row className="btns-panel-row">
           <Col>
             <div className="btns-panel-container d-flex justify-content-center">
-              
               <ButtonsPanel 
                 nodes={{ searchValueNode }}
               />
@@ -191,7 +192,7 @@ const Explore = () => {
           </Col>
         </Row>
 
-        <Row className="row-msg-user">
+        <Row className="msg-user-row">
           <Col md={12}>
             <div className="msg-user" ref={msgUserNode}>
               <h6>Hi, some features of this app are still under development.</h6>
