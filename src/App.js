@@ -7,27 +7,37 @@ import Explore from "./components/Explore";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 
-import GlobalDataContext from "./contextAPI/globalData/context";
-import globalDataReducer from "./contextAPI/globalData/reducer";
+import { tsContext as TSContext } from "./contextAPI/globalData/context";
+import dataReducer from "./contextAPI/globalData/reducer";
 import { useReducer } from "react";
 
 import { QueryClient, QueryClientProvider } from 'react-query';
 
+
+const initialState = {
+  states: null,
+  nodes: null,
+  objects: null,
+  arrays: null,
+  refVars: null,
+  vars: null,
+  triggered: false
+};
 
 const queryClient = new QueryClient();
 
 
 const App = () => {
 
-  const [globalData, dispatch] = useReducer(globalDataReducer, {});
+  const [tsData, tsDispatch] = useReducer(dataReducer, initialState);
 
   return (
     <Provider store={store}>
-      <GlobalDataContext.Provider value={{globalData, dispatch}}>
+      <TSContext.Provider value={{ tsData, tsDispatch }}>
         <QueryClientProvider client={queryClient}>
           <Explore/>
         </QueryClientProvider>
-      </GlobalDataContext.Provider>
+      </TSContext.Provider>
     </Provider>
   );
 };
