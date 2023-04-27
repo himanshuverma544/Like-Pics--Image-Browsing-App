@@ -8,7 +8,9 @@ const getThemeStyles = {
       textColor: "#000",
     },
     themeIcon: {
-      fill: "#000"
+      fill: "#000",
+      hideIconClassName: ".light-theme-icon",
+      showIconClassName: ".dark-theme-icon"
     },
     btnsPanelOpenIcon: {
       backgroundColor: "#FFF",
@@ -35,7 +37,9 @@ const getThemeStyles = {
       textColor: "#FFF",
     },
     themeIcon: {
-      fill: "#FFF"
+      fill: "#FFF",
+      hideIconClassName: ".dark-theme-icon",
+      showIconClassName: ".light-theme-icon"
     },
     btnsPanelOpenIcon: {
       backgroundColor: "#252525",
