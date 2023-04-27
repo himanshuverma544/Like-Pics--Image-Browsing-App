@@ -12,10 +12,10 @@ const getThemeStyles = {
       hideIconClassName: ".light-theme-icon",
       showIconClassName: ".dark-theme-icon"
     },
-    btnsPanelOpenIcon: {
-      backgroundColor: "#FFF",
-      stroke: "#252525"
-    },
+    // btnsPanelOpenIcon: {
+    //   backgroundColor: "#FFF",
+    //   stroke: "#252525"
+    // },
     btnsPanelBtns: {
       default: {
         backgroundColor: "#FFF",
@@ -41,10 +41,10 @@ const getThemeStyles = {
       hideIconClassName: ".dark-theme-icon",
       showIconClassName: ".light-theme-icon"
     },
-    btnsPanelOpenIcon: {
-      backgroundColor: "#252525",
-      stroke: "#FFF"
-    },
+    // btnsPanelOpenIcon: {
+    //   backgroundColor: "#252525",
+    //   stroke: "#FFF"
+    // },
     btnsPanelBtns: {
       default: {
         backgroundColor: "#252525",

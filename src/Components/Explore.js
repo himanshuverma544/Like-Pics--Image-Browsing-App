@@ -183,7 +183,7 @@ const Explore = () => {
         <Row>
           <Col>
             <div className="btns-panel-container d-flex justify-content-center">
-              <RiArrowUpSLine className="open-icon"/>
+              
               <ButtonsPanel 
                 nodes={{ searchValueNode }}
               />

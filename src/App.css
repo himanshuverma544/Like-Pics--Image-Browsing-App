@@ -173,7 +173,7 @@ form {
   visibility: visible;
 }
 
-.btns-panel-container .open-icon {
+/* .btns-panel-container .open-icon {
   position: fixed;
   bottom: 0;
   z-index: 1;
@@ -183,19 +183,18 @@ form {
   border-radius: 20px;
   cursor: pointer;
   border: 2px solid #BB2D3B;
-}
+} */
 
 .btns-panel {
   position: fixed;
   bottom: 0;
   z-index: 1;
   height: 40px;
-  display: none;
 }
 
-.btns-panel-container:hover .btns-panel {
+/* .btns-panel-container:hover .btns-panel {
   display: block;
-}
+} */
 
 .btns-panel .theme {
   height: inherit;
