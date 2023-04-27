@@ -10,7 +10,7 @@ import { BsSearch } from "react-icons/bs";
 import { RiArrowUpSLine } from "react-icons/ri";
 
 // functions
-import { memoGetImage, memoTypewriter } from "../functions";
+import { useGetImage, useTypewriter } from "../customHooks";
 
 // components
 import ButtonsPanel from "./ButtonsPanel";
@@ -124,7 +124,7 @@ const Explore = () => {
           <Col md={12}>
             <div className="hero-sec d-flex justify-content-center align-items-center position-relative">
               <h1 className="me-3">Like Pics</h1>
-              <img className="app-icon" src={memoGetImage("like-icon.png")} alt="Like Icon"/>
+              <img className="app-icon" src={useGetImage("like-icon.png")} alt="Like Icon"/>
             </div>
           </Col>
         </Row>
@@ -141,7 +141,7 @@ const Explore = () => {
                   onChange={event => setSearchQuery(event.target.value.trim())}
                   autoComplete="off"
                   // placeholder={
-                  //   memoTypewriter({
+                  //   useTypewriter({
                   //     leftStaticStr: "Search for ", 
                   //     words: popularImageSearchWords, 
                   //     rightStaticStr: " from the library of over 3.48 million plus photos",
