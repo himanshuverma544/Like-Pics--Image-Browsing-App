@@ -89,3 +89,5 @@ const ButtonsPanel = ({ nodes: { searchValueNode } }) => {
 };
 
 export default memo(ButtonsPanel);
+
+// TODO: adding the sliding effect for button panel
