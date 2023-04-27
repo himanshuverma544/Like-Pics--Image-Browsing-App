@@ -93,7 +93,7 @@ const AutoSuggestions = ({
       setAutoSuggestionsData(autoCompSuggesArr);
       autoSuggestNode.current.style.display = "block";
     } catch (exception) {
-      // console.log(exception.message);
+      console.log(exception.message);
     }
   }, [searchQuery, limit]);
 
@@ -123,7 +123,7 @@ const AutoSuggestions = ({
   useEffect(() => {
     let tempSearchValueNode = searchValueNode.current;
 
-    function addingEventsListener() {
+    function addingEventsListeners() {
       ["focus", "keyup"].forEach((currentEvent) => {
         tempSearchValueNode.addEventListener(
           currentEvent,
@@ -132,7 +132,7 @@ const AutoSuggestions = ({
       });
     }
 
-    addingEventsListener();
+    addingEventsListeners();
 
     return () => {
       ["focus", "keyup"].forEach((currentEvent) => {
