@@ -11,8 +11,6 @@ import { tsContext as TSContext } from "./contextAPI/globalData/context";
 import dataReducer from "./contextAPI/globalData/reducer";
 import { useReducer } from "react";
 
-import { QueryClient, QueryClientProvider } from 'react-query';
-
 
 const initialState = {
   states: null,
@@ -24,8 +22,6 @@ const initialState = {
   triggered: false
 };
 
-const queryClient = new QueryClient();
-
 
 const App = () => {
 
@@ -34,9 +30,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <TSContext.Provider value={{ tsData, tsDispatch }}>
-        <QueryClientProvider client={queryClient}>
           <Explore/>
-        </QueryClientProvider>
       </TSContext.Provider>
     </Provider>
   );
