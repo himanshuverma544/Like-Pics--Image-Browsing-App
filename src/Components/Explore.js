@@ -1,5 +1,5 @@
 // react hooks
-import { useState, useRef, useCallback, memo } from "react";
+import { useState, useEffect, useRef, useCallback, memo } from "react";
 
 // remote-data management libraries
 import Axios from "axios";
@@ -32,11 +32,10 @@ const Explore = () => {
 
   const vals = useRef({
     storeSearchQuery: "",
-    loadPageNo: 1,
+    loadPageNum: 1,
   });
 
   const searchValueNode = useRef(null);
-  const loadBtnNode = useRef(null);
   const msgUserNode = useRef(null);
 
   const imagesDispatch = useDispatch();
@@ -49,13 +48,11 @@ const Explore = () => {
     const { data: {results} } = await Axios.get(URL, {
       params: {
         query: vals.current.storeSearchQuery,
-        page: vals.current.loadPageNo,
-        per_page: 20,
+        page: vals.current.loadPageNum,
+        per_page: 28,
         client_id: process.env.REACT_APP_UNSPLASH_API_ACCESS_KEY
       },
     });
-    
-    loadBtnNode.current.style.display = results.length ? "block" : "none";
 
     const imagesToLoad = results.map(image => {
       const imgReqData = {
@@ -88,9 +85,10 @@ const Explore = () => {
     if (event) {
       event.preventDefault();
     }
+    searchValueNode.current.blur();
 
     vals.current.storeSearchQuery = !selectedSearchVal ? searchQuery : selectedSearchVal;
-    vals.current.loadPageNo = 1;
+    vals.current.loadPageNum = 1;
 
     if (msgUserNode.current) {
       document.querySelector(".msg-user-row").style.display = "none";
@@ -105,14 +103,26 @@ const Explore = () => {
 
   const handleLoadImages = useCallback(async () => {
 
-    ++vals.current.loadPageNo;
-
-    const imagesToLoad = await fetchPhotos();
-
-    imagesDispatch(loadImages(imagesToLoad));
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500) {
+      ++vals.current.loadPageNum;
+      const imagesToLoad = await fetchPhotos();
+      imagesDispatch(loadImages(imagesToLoad));
+    }
 
   }, [fetchPhotos, imagesDispatch]);
 
+  useEffect(()=> {
+
+      function addingEventListener() {
+        window.addEventListener("scroll", handleLoadImages);
+      }
+      addingEventListener();
+
+      return () => {
+        window.removeEventListener("scroll", handleLoadImages);
+      }
+  
+  }, [handleLoadImages]);
 
   return (
     <>
@@ -140,13 +150,13 @@ const Explore = () => {
                   innerRef={searchValueNode}
                   onChange={event => setSearchQuery(event.target.value.trim())}
                   autoComplete="off"
-                  // placeholder={
-                  //   useTypewriter({
-                  //     leftStaticStr: "Search for ", 
-                  //     words: popularImageSearchWords, 
-                  //     rightStaticStr: " from the library of over 3.48 million plus photos",
-                  //   })
-                  // }
+                  placeholder={
+                    useTypewriter({
+                      leftStaticStr: "Search for ", 
+                      words: popularImageSearchWords, 
+                      rightStaticStr: " from the library of over 3.48 million plus photos",
+                    })
+                  }
                   autoFocus
                 />
                 <Button
@@ -168,18 +178,6 @@ const Explore = () => {
       
         <Row className="images-showcase-row">
           <ImagesShowCase/>
-        </Row>
-
-        <Row>
-          <Col md={12}>
-            <Button
-              className="load-btn px-5 mx-auto mt-5"
-              color="danger"
-              innerRef={loadBtnNode}
-              onClick={() => handleLoadImages()}>
-                Load More
-            </Button>
-          </Col>
         </Row>
         
         <Row className="btns-panel-row">
