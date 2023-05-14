@@ -18,8 +18,7 @@
 .env.development.local
 .env.test.local
 .env.production.local
-Like Pics.jpg
-Like Pics - GitHub Social Preview.jpg
+/publish-data
 
 npm-debug.log*
 yarn-debug.log*
