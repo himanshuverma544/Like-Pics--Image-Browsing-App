@@ -8,6 +8,7 @@ proficiency and showcasing the ability to bring creative concepts to life with c
 
 # Technology Used
 - React
+- Redux
 
 # API Used
 - Unsplash API
