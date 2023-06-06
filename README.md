@@ -15,7 +15,6 @@ proficiency and showcasing the ability to bring creative concepts to life with c
 # Libraries Used
 - react-redux
 - @reduxjs/toolkit
-- react-router-dom
 - react-query
 - axios
 - firebase
