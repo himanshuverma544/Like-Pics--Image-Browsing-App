@@ -8,14 +8,15 @@ proficiency and showcasing the ability to bring creative concepts to life with c
 
 # Technology Used
 - React
+- Redux
 
 # API Used
 - Unsplash API
 
 # Libraries Used
-- redux
+- react-redux
 - @reduxjs/toolkit
-- react-router-dom
+- react-query
 - axios
 - firebase
 - reactstrap
@@ -26,21 +27,5 @@ proficiency and showcasing the ability to bring creative concepts to life with c
 - uuid
 - gh-pages
 
-# Concepts Covered
-- ES6
-- React Components
-- React Props
-- React Hooks (useState, useRef, useCallback, useSelector, useDispatch)
-- Redux
-- React Routing
-- Axios and Axios Cancel Token (Manages multiple APIs requests)
-- Firebase Real-Time Database and Storage
-- Cookies (For keeping the user signed in)
-- Handling Images: Lazy loading and Progressive image loading
-- Performance of the application (memo)
-
 # Deployed On
 - GitHub Pages
-
-# Attribution
-- Theme Icon by <a href="https://www.flaticon.com/authors/graphixs-art" target="_blank">Graphix's Art</a>
