@@ -7,7 +7,6 @@ import Axios from "axios";
 // frontend libraries
 import { Container, Row, Col, Button, Form, Input, InputGroup } from "reactstrap";
 import { BsSearch } from "react-icons/bs";
-import { RiArrowUpSLine } from "react-icons/ri";
 
 // functions
 import { useGetImage, useTypewriter } from "../customHooks";
@@ -36,7 +35,6 @@ const Explore = () => {
   });
 
   const searchValueNode = useRef(null);
-  const msgUserNode = useRef(null);
 
   const imagesDispatch = useDispatch();
 
@@ -90,11 +88,6 @@ const Explore = () => {
     vals.current.storeSearchQuery = !selectedSearchVal ? searchQuery : selectedSearchVal;
     vals.current.loadPageNum = 1;
 
-    if (msgUserNode.current) {
-      document.querySelector(".msg-user-row").style.display = "none";
-      msgUserNode.current = null;
-    }
-    
     const imagesToLoad = await fetchPhotos();
     imagesDispatch(searchImages(imagesToLoad));
 
@@ -125,82 +118,71 @@ const Explore = () => {
   }, [handleLoadImages]);
 
   return (
-    <>
-      <Container className="py-3">
-      
-        <ThemeSwitcher/>
+    <Container className="py-3">
+    
+      <ThemeSwitcher/>
 
-        <Row>
-          <Col md={12}>
-            <div className="hero-sec d-flex justify-content-center align-items-center position-relative">
-              <h1 className="me-3">Like Pics</h1>
-              <img className="app-icon" src={useGetImage("like-icon.png")} alt="Like Icon"/>
-            </div>
-          </Col>
-        </Row>
+      <Row>
+        <Col md={12}>
+          <div className="hero-sec d-flex justify-content-center align-items-center position-relative">
+            <h1 className="me-3">Like Pics</h1>
+            <img className="app-icon" src={useGetImage("like-icon.png")} alt="Like Icon"/>
+          </div>
+        </Col>
+      </Row>
 
-        <Row>
-          <Col md={12}>
-            <Form className="position-relative" onSubmit={event => handleSearchImages(event)}>
-              <InputGroup>
-                <Input
-                  type="text"
-                  id="search-field"
-                  className="ps-3"
-                  innerRef={searchValueNode}
-                  onChange={event => setSearchQuery(event.target.value.trim())}
-                  autoComplete="off"
-                  placeholder={
-                    useTypewriter({
-                      leftStaticStr: "Search for ", 
-                      words: popularImageSearchWords, 
-                      rightStaticStr: " from the library of over 3.48 million plus photos",
-                    })
-                  }
-                  autoFocus
-                />
-                <Button
-                  className="search-btn"
-                  color="danger"
-                >
-                  <BsSearch/>
-                </Button>
-              </InputGroup>
-              {<AutoSuggestions
-                states={{searchQuery, setSearchQuery}}
-                nodes={{searchValueNode}}
-                variables={{limit: 5}}
-                functions={{handleSearchImages}}
-              />}
-            </Form>
-          </Col>
-        </Row>
-      
-        <Row className="images-showcase-row">
-          <ImagesShowCase/>
-        </Row>
-        
-        <Row className="btns-panel-row">
-          <Col>
-            <div className="btns-panel-container d-flex justify-content-center">
-              <ButtonsPanel 
-                nodes={{ searchValueNode }}
+      <Row>
+        <Col md={12}>
+          <Form className="position-relative" onSubmit={event => handleSearchImages(event)}>
+            <InputGroup>
+              <Input
+                type="text"
+                id="search-field"
+                className="ps-3"
+                innerRef={searchValueNode}
+                onChange={event => setSearchQuery(event.target.value.trim())}
+                autoComplete="off"
+                placeholder={
+                  useTypewriter({
+                    leftStaticStr: "Search for ", 
+                    words: popularImageSearchWords, 
+                    rightStaticStr: " from the library of over 3.48 million plus photos",
+                  })
+                }
+                autoFocus
               />
-            </div>
-          </Col>
-        </Row>
+              <Button
+                className="search-btn"
+                color="danger"
+              >
+                <BsSearch/>
+              </Button>
+            </InputGroup>
+            {<AutoSuggestions
+              states={{searchQuery, setSearchQuery}}
+              nodes={{searchValueNode}}
+              variables={{limit: 5}}
+              functions={{handleSearchImages}}
+            />}
+          </Form>
+        </Col>
+      </Row>
+    
+      <Row className="images-showcase-row">
+        <ImagesShowCase/>
+      </Row>
+      
+      <Row className="btns-panel-row">
+        <Col>
+          <div className="btns-panel-container d-flex justify-content-center">
+            <ButtonsPanel 
+              nodes={{ searchValueNode }}
+            />
+          </div>
+        </Col>
+      </Row>
 
-        <Row className="msg-user-row">
-          <Col md={12}>
-            <div className="msg-user" ref={msgUserNode}>
-              <h6>Hi, some features of this app are still under development.</h6>
-              <h6>In the meantime, feel free to use and enjoy the built features.</h6>
-              <h6>Thanks for your cooperation.</h6>
-            </div>
-          </Col>
-        </Row>
     </Container>
-  </>
   );
 };
 
