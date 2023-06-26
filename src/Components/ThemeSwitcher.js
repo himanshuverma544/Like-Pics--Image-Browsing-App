@@ -50,11 +50,11 @@ const ThemeSwitcher = () => {
           );
         });
 
+        document.querySelectorAll('a').forEach(element => 
+          element.style.color = currentTheme.links.color
+        );
+
         document.querySelector(".theme-icon").style.fill = currentTheme.themeIcon.fill;
-        
-        // const btnsPanelOpenIcon = document.querySelector(".btns-panel-container .open-icon");
-        // btnsPanelOpenIcon.style.backgroundColor = currentTheme.btnsPanelOpenIcon.backgroundColor;
-        // btnsPanelOpenIcon.style.stroke = currentTheme.btnsPanelOpenIcon.stroke;
 
         document.querySelectorAll(".panel-btn").forEach(btn => {
 
