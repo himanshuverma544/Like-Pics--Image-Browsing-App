@@ -8,6 +8,7 @@ import { MdOutlineLightMode, MdOutlineNightlight } from "react-icons/md";
 
 import getThemeStyles from "../assets/objects/getThemeStyles";
 
+
 const ThemeSwitcher = () => {
 
   const [theme, setTheme] = useState(() => {
