@@ -8,7 +8,7 @@ const getThemeStyles = {
       textColor: "#000",
     },
     links: {
-      color: "#000"
+      color: "#FFF"
     },
     themeIcon: {
       fill: "#000",
