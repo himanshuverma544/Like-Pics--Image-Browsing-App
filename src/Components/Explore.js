@@ -158,12 +158,12 @@ const Explore = () => {
                 <BsSearch/>
               </Button>
             </InputGroup>
-            {<AutoSuggestions
+            {/* {<AutoSuggestions
               states={{searchQuery, setSearchQuery}}
               nodes={{searchValueNode}}
               variables={{limit: 5}}
               functions={{handleSearchImages}}
-            />}
+            />} */}
           </Form>
         </Col>
       </Row>
