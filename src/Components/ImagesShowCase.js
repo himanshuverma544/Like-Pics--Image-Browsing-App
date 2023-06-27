@@ -3,14 +3,14 @@ import { useSelector } from "react-redux";
 
 import Axios from "axios";
 
-import { Row, Col } from "reactstrap";
+import { Col } from "reactstrap";
 
 import ProgressiveImage from "react-progressive-graceful-image";
 import randomColor from "randomcolor";
 
 import { Hearts } from "react-loading-icons";
-import { AiOutlineHeart, /*AiFillHeart*/ AiOutlineDownload } from "react-icons/ai";
-import { MdOutlineBookmarkAdd, /*MdOutlineBookmarkAdded*/ } from "react-icons/md";
+import { AiOutlineHeart, AiFillHeart, AiOutlineDownload } from "react-icons/ai";
+import { MdOutlineBookmarkAdd, MdOutlineBookmarkAdded } from "react-icons/md";
 
 
 const ImagesShowCase = () => {
