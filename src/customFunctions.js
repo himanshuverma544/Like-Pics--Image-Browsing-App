@@ -2,7 +2,7 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function typeWriter({leftStaticStr = "", words, rightStaticStr = "", speed = 100, cursor = ''}) {
+function theTypewriter({leftStaticStr = "", words, rightStaticStr = "", speed = 100, cursor = ''}) {
 
   let currentWordIndex = Math.floor(Math.random() * words.length);
   let currentLetterIndex = 0;
@@ -38,7 +38,7 @@ function typeWriter({leftStaticStr = "", words, rightStaticStr = "", speed = 100
 }
 
 
-function getImage(name) {
+function theGetImage(name) {
   
   try {
     const image = require(`./assets/images/${name}`);
@@ -72,7 +72,7 @@ function memoFunc(func) {
 }
 
 
-const useTypewriter = memoFunc(typeWriter); // TODO: Function optimization : should run only when in use
-const useGetImage = memoFunc(getImage);
+const typewriter = memoFunc(theTypewriter); // TODO: Function optimization : should run only when in use
+const getImage = memoFunc(theGetImage);
 
-export { useTypewriter, useGetImage };
+export { typewriter, getImage };
