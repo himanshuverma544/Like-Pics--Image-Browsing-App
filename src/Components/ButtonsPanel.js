@@ -15,6 +15,7 @@ import {
 } 
 from "react-icons/ri";
 
+
 const ButtonsPanel = ({ nodes: { searchValueNode } }) => {
 
   const { tsData: { triggered }, tsData: { states } } = useContext(tsContext);
