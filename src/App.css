@@ -188,8 +188,3 @@ form {
 .btns-panel .panel-btn.active {
   border: 2px solid #BB2D3B;
 }
-
-.msg-user {
-  text-align: center;
-  color: #FFF;
-}
