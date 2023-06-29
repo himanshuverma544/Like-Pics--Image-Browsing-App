@@ -2,14 +2,18 @@
 import { useState, useEffect, useRef, useCallback, memo } from "react";
 
 // remote-data management libraries
+import { useInfiniteQuery } from "react-query";
 import Axios from "axios";
+
+// utility libraries
+import { useInView } from "react-intersection-observer";
 
 // frontend libraries
 import { Container, Row, Col, Button, Form, Input, InputGroup } from "reactstrap";
 import { BsSearch } from "react-icons/bs";
 
 // functions
-import { useGetImage, useTypewriter } from "../customHooks";
+import { getImage, typewriter } from "../customFunctions";
 
 // components
 import ButtonsPanel from "./ButtonsPanel";
@@ -19,7 +23,7 @@ import ImagesShowCase from "./ImagesShowCase";
 
 // redux
 import { useDispatch } from "react-redux";
-import { searchImages, loadImages } from "../redux/imagesSlice";
+import { loadImages, searchImages } from "../redux/imagesSlice";
 
 // data
 import popularImageSearchWords from "../assets/arrays/popularImageSearchWords";
@@ -31,7 +35,8 @@ const Explore = () => {
 
   const vals = useRef({
     storeSearchQuery: "",
-    loadPageNum: 1,
+    IMAGES_PER_PAGE: 20,
+    pageNum: 1
   });
 
   const searchValueNode = useRef(null);
@@ -39,83 +44,87 @@ const Explore = () => {
   const imagesDispatch = useDispatch();
 
 
-  const fetchPhotos = useCallback(async () => {
+  const fetchImages = useCallback(async (searchQuery, pageParam, selectedSearchVal = "") => {
+
+    vals.current.storeSearchQuery = !selectedSearchVal ? searchQuery : selectedSearchVal;
 
     const URL = "https://api.unsplash.com/search/photos";
 
-    const { data: {results} } = await Axios.get(URL, {
+    const { data: { results } } = await Axios.get(URL, {
       params: {
         query: vals.current.storeSearchQuery,
-        page: vals.current.loadPageNum,
-        per_page: 28,
+        page: pageParam,
+        per_page: vals.current.IMAGES_PER_PAGE,
         client_id: process.env.REACT_APP_UNSPLASH_API_ACCESS_KEY
       },
     });
 
-    const imagesToLoad = results.map(image => {
-      const imgReqData = {
-        id : image.id,
-        urls : {
-          regular : image.urls.regular,
-          thumb : image.urls.thumb
-        },
-        alt : image.alt_description,
-        actions: {
-        likes : image.likes,
-        download: image.links.download
-        },
-        photographer: {
-          fullName: image.user.name,
-          profile: `${image.user.links.html}/?utm_source=like_pics&utm_medium=referral`
-        },
-        unsplashUrl: "https://unsplash.com/?utm_source=like_pics&utm_medium=referral"
-      }
-      return imgReqData;
-    });
-
-    return imagesToLoad;
-
+    return {
+      results,
+      currPage: pageParam 
+    };
   }, []);
 
+ 
+  const {
+    data, 
+    isSuccess, 
+    hasNextPage, 
+    fetchNextPage, 
+    isFetchingNextPage, 
+    refetch: handleSearchImages
+  } = 
+  useInfiniteQuery({
+    queryKey: ["images"], 
+    queryFn: ({ pageParam = 1 }) => fetchImages(searchQuery, pageParam),
+    getNextPageParam: lastPage => lastPage.results.length ? lastPage.currPage + 1 : undefined,
+    enabled: false
+  });
 
-  const handleSearchImages = useCallback(async (event, selectedSearchVal = "") => {
 
-    if (event) {
-      event.preventDefault();
+  const handleLoadMore = useCallback(() => {
+    if (hasNextPage) {
+      fetchNextPage();
     }
-    searchValueNode.current.blur();
-
-    vals.current.storeSearchQuery = !selectedSearchVal ? searchQuery : selectedSearchVal;
-    vals.current.loadPageNum = 1;
-
-    const imagesToLoad = await fetchPhotos();
-    imagesDispatch(searchImages(imagesToLoad));
-
-  }, [searchQuery, fetchPhotos, imagesDispatch]);
+  }, [hasNextPage, fetchNextPage]);
 
 
-  const handleLoadImages = useCallback(async () => {
+  useEffect(() => {
 
-    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500) {
-      ++vals.current.loadPageNum;
-      const imagesToLoad = await fetchPhotos();
-      imagesDispatch(loadImages(imagesToLoad));
+    if (isSuccess) {
+      
+      function storeFetchedImages() {
+
+        const { pages, pageParams } = data;
+        const { results } = pages[pages.length - 1];     
+
+        const images = results.map(image => {
+          const imgReqData = {
+            id : image.id,
+            urls : {
+              regular : image.urls.regular,
+              thumb : image.urls.thumb
+            },
+            alt : image.alt_description,
+            actions: {
+              likes : image.likes,
+              download: image.links.download
+            },
+            photographer: {
+              fullName: image.user.name,
+              profile: `${image.user.links.html}/?utm_source=like_pics&utm_medium=referral`
+            },
+            unsplashUrl: "https://unsplash.com/?utm_source=like_pics&utm_medium=referral"
+          }
+          return imgReqData;
+        });
+
+      pageParams.at(-1) === undefined ? imagesDispatch(searchImages(images)) : imagesDispatch(loadImages(images));
+      }
+      storeFetchedImages();
     }
+  }, [data, isSuccess, imagesDispatch]);
 
-  }, [fetchPhotos, imagesDispatch]);
-
-  useEffect(()=> {
-
-      function addingEventListener() {
-        window.addEventListener("scroll", handleLoadImages);
-      }
-      addingEventListener();
-
-      return () => {
-        window.removeEventListener("scroll", handleLoadImages);
-      }
-  
-  }, [handleLoadImages]);
 
   return (
     <Container className="py-3">
@@ -126,14 +135,19 @@ const Explore = () => {
         <Col md={12}>
           <div className="hero-sec d-flex justify-content-center align-items-center position-relative">
             <h1 className="me-3">Like Pics</h1>
-            <img className="app-icon" src={useGetImage("like-icon.png")} alt="Like Icon"/>
+            <img className="app-icon" src={getImage("like-icon.png")} alt="Like Icon"/>
           </div>
         </Col>
       </Row>
 
       <Row>
         <Col md={12}>
-          <Form className="position-relative" onSubmit={event => handleSearchImages(event)}>
+          <Form
+            className="position-relative"
+            onSubmit={event => {
+              event.preventDefault();
+              handleSearchImages();
+          }}>
             <InputGroup>
               <Input
                 type="text"
@@ -142,13 +156,13 @@ const Explore = () => {
                 innerRef={searchValueNode}
                 onChange={event => setSearchQuery(event.target.value.trim())}
                 autoComplete="off"
-                placeholder={
-                  useTypewriter({
-                    leftStaticStr: "Search for ", 
-                    words: popularImageSearchWords, 
-                    rightStaticStr: " from the library of over 3.48 million plus photos",
-                  })
-                }
+                // placeholder={
+                //   typewriter({
+                //     leftStaticStr: "Search for ", 
+                //     words: popularImageSearchWords, 
+                //     rightStaticStr: " from the library of over 3.48 million plus photos",
+                //   })
+                // }
                 autoFocus
               />
               <Button
@@ -158,12 +172,12 @@ const Explore = () => {
                 <BsSearch/>
               </Button>
             </InputGroup>
-            {/* {<AutoSuggestions
+            {/* <AutoSuggestions
               states={{searchQuery, setSearchQuery}}
               nodes={{searchValueNode}}
               variables={{limit: 5}}
               functions={{handleSearchImages}}
-            />} */}
+            /> */}
           </Form>
         </Col>
       </Row>
@@ -171,7 +185,17 @@ const Explore = () => {
       <Row className="images-showcase-row">
         <ImagesShowCase/>
       </Row>
-      
+
+      <Row>
+        <Button 
+          className="load-more-btn"
+          onClick={handleLoadMore}
+          disabled={isFetchingNextPage}
+        >
+          Load More
+        </Button>
+      </Row>
+    
       <Row className="btns-panel-row">
         <Col>
           <div className="btns-panel-container d-flex justify-content-center">
