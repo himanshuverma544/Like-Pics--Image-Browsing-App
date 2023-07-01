@@ -43,6 +43,8 @@ const Explore = () => {
 
   const imagesDispatch = useDispatch();
 
+  const { ref, inView } = useInView();
+
 
   const fetchImages = useCallback(async (searchQuery, pageParam, selectedSearchVal = "") => {
 
@@ -75,18 +77,18 @@ const Explore = () => {
     refetch: handleSearchImages
   } = 
   useInfiniteQuery({
-    queryKey: ["images"], 
+    queryKey: [searchQuery], 
     queryFn: ({ pageParam = 1 }) => fetchImages(searchQuery, pageParam),
     getNextPageParam: lastPage => lastPage.results.length ? lastPage.currPage + 1 : undefined,
     enabled: false
   });
 
 
-  const handleLoadMore = useCallback(() => {
-    if (hasNextPage) {
+  useEffect(() => {
+    if (inView && hasNextPage) {
       fetchNextPage();
     }
-  }, [hasNextPage, fetchNextPage]);
+  }, [inView, hasNextPage, fetchNextPage]);
 
 
   useEffect(() => {
@@ -183,17 +185,7 @@ const Explore = () => {
       </Row>
     
       <Row className="images-showcase-row">
-        <ImagesShowCase/>
-      </Row>
-
-      <Row>
-        <Button 
-          className="load-more-btn"
-          onClick={handleLoadMore}
-          disabled={isFetchingNextPage}
-        >
-          Load More
-        </Button>
+        <ImagesShowCase ref={ref}/>
       </Row>
     
       <Row className="btns-panel-row">

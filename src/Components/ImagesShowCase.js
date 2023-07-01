@@ -1,3 +1,5 @@
+import React from "react";
+
 import { useCallback, memo } from "react";
 import { useSelector } from "react-redux";
 
@@ -13,7 +15,7 @@ import { AiOutlineHeart, AiFillHeart, AiOutlineDownload } from "react-icons/ai";
 import { MdOutlineBookmarkAdd, MdOutlineBookmarkAdded } from "react-icons/md";
 
 
-const ImagesShowCase = () => {
+const ImagesShowCase = React.forwardRef((props, ref) => {
 
   const imagesToDisplay = useSelector(state => state.imagesReducer);
   
@@ -30,11 +32,15 @@ const ImagesShowCase = () => {
 
   return (
     imagesToDisplay.length ? 
-      imagesToDisplay.map(imageToDisplay => (
+      imagesToDisplay.map((imageToDisplay, index) => (
         <Col className="py-1 px-1 d-flex justify-content-center" key={imageToDisplay.id} sm={6} md={4} lg={3}>
           <ProgressiveImage src={imageToDisplay.urls.regular} placeholder={imageToDisplay.urls.thumb}>
             {(src, loading) => (
-              <div className="image-container d-flex justify-content-center" style={{backgroundColor : randomColor()}}>
+              <div 
+                ref={imagesToDisplay.length - 8 === index ? ref : ""} 
+                className="image-container d-flex justify-content-center" 
+                style={{backgroundColor : randomColor()}}
+              >
                 <Hearts className="hearts-loading-icon ms-3" style={{ display : loading ? "block" : "none" }} stroke="#000"/>
                 <div className="actions-on-img d-flex">
                   <div className="download">
@@ -81,7 +87,7 @@ const ImagesShowCase = () => {
       ))   
     : null
   );
-};
+});
 
 export default memo(ImagesShowCase);
 
