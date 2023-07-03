@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext, memo } from "react";
 
-import { tsContext } from "../contextAPI/globalData/context";
-import { storeData } from "../contextAPI/globalData/action.creators";
+import { tsContext } from "../context";
+import { storeData } from "../actions/action.creators";
 
 import { Row, Col } from "reactstrap";
 import { MdOutlineLightMode, MdOutlineNightlight } from "react-icons/md";

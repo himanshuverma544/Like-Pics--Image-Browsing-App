@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef, useCallback, memo } from "react";
 
-import { tsContext } from "../contextAPI/globalData/context";
+import { tsContext } from "../context";
 
 import  { Button } from "reactstrap";
 import { 
