@@ -65,27 +65,25 @@ const ButtonsPanel = ({ nodes: { searchValueNode } }) => {
   }, [searchValueNode, scrollToTop]);
 
 
-  return (
-    triggered ? (
-      <div className="btns-panel" ref={btnsPanelNode}>
-        <Button className="search panel-btn" onClick={search}>
-          <RiSearchLine className="panel-icon"/>
-        </Button>
-        <Button className="explore panel-btn active ms-1">
-          <MdOutlineExplore className="panel-icon"/>
-        </Button>
-        <Button className="saved panel-btn ms-1">
-          <MdOutlineBookmarkAdded className="panel-icon"/>
-        </Button>
-        <Button className="theme panel-btn ms-1" onClick={switchTheme}>
-          <MdOutlineLightMode className="panel-icon light-theme-icon"/>
-          <MdOutlineNightlight className="panel-icon dark-theme-icon"/>
-        </Button>
-        <Button className="up panel-btn ms-1" onClick={scrollToTop}>
-          <RiArrowUpSLine className="panel-icon"/>
-        </Button>
-      </div>
-    ) : null
+  return ( triggered &&
+    <div className="btns-panel" ref={btnsPanelNode}>
+      <Button className="search panel-btn" onClick={search}>
+        <RiSearchLine className="panel-icon"/>
+      </Button>
+      <Button className="explore panel-btn active ms-1">
+        <MdOutlineExplore className="panel-icon"/>
+      </Button>
+      <Button className="saved panel-btn ms-1">
+        <MdOutlineBookmarkAdded className="panel-icon"/>
+      </Button>
+      <Button className="theme panel-btn ms-1" onClick={switchTheme}>
+        <MdOutlineLightMode className="panel-icon light-theme-icon"/>
+        <MdOutlineNightlight className="panel-icon dark-theme-icon"/>
+      </Button>
+      <Button className="up panel-btn ms-1" onClick={scrollToTop}>
+        <RiArrowUpSLine className="panel-icon"/>
+      </Button>
+    </div>
   );
 };
 
