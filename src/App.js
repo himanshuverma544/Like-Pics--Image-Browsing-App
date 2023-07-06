@@ -7,8 +7,8 @@ import Explore from "./components/Explore";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 
-import { tsContext as TSContext } from "./contextAPI/globalData/context";
-import dataReducer from "./contextAPI/globalData/reducer";
+import { tsContext as TSContext } from "./context";
+import dataReducer from "./reducers/globalData";
 import { useReducer } from "react";
 
 import { QueryClient, QueryClientProvider } from 'react-query';
