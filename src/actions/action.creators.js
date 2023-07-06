@@ -1,4 +1,5 @@
-import { STORE_DATA, INVALID_TYPE_OF_DATA } from "./action.types";
+import { STORE_DATA, INVALID_TYPE_OF_DATA, SEARCH_IMAGES, LOAD_MORE_IMAGES } from "./action.types";
+
 
 const storeData = (data, typeOfData) => {
 
@@ -24,4 +25,17 @@ const storeData = (data, typeOfData) => {
   }
 };
 
-export { storeData };
+
+const handleImages = data => {
+
+  return {
+    type: data.action === undefined ? SEARCH_IMAGES : LOAD_MORE_IMAGES,
+    payload: data.images
+  }
+}
+
+
+export { 
+  storeData, 
+  handleImages 
+};
