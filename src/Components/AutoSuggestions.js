@@ -161,20 +161,20 @@ const AutoSuggestions = ({
 
   return (
     <div className="auto-complete position-absolute" ref={autoSuggestNode}>
-      {autoSuggestionsData.length ? (
+      {autoSuggestionsData.length ? 
         <ul
           className="ps-0"
-          onClick={(event) => handleSelectedSuggestion(event)}
+          onClick={event => handleSelectedSuggestion(event)}
         >
-          {autoSuggestionsData.map((autoSuggestionData) => (
+          {autoSuggestionsData.map(autoSuggestionData => (
             <li key={autoSuggestionData.id} className="ps-3 py-1">
               {autoSuggestionData.text}
             </li>
           ))}
         </ul>
-      ) : (
+       : 
         <></>
-      )}
+      }
     </div>
   );
 };
