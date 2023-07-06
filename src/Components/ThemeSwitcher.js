@@ -6,24 +6,24 @@ import { storeData } from "../actions/action.creators";
 import { Row, Col } from "reactstrap";
 import { MdOutlineLightMode, MdOutlineNightlight } from "react-icons/md";
 
+import { DARK_THEME, LIGHT_THEME } from "../constants";
 import getThemeStyles from "../assets/objects/getThemeStyles";
-
 
 const ThemeSwitcher = () => {
 
   const [theme, setTheme] = useState(() => {
     const localTheme = localStorage.getItem("localTheme");
-    return localTheme ? localTheme : "dark";
+    return localTheme ? localTheme : DARK_THEME;
   });
   const currentTheme = getThemeStyles[theme];
 
   const { tsData: { triggered }, tsDispatch: dispatch } = useContext(tsContext);
 
   useEffect(() => {
-      function storeGlobalData() {
-        dispatch(storeData({theme, setTheme}, "states"));
-      }
-      storeGlobalData();
+    function storeGlobalData() {
+      dispatch(storeData({theme, setTheme}, "states"));
+    }
+    storeGlobalData();
   }, [theme, dispatch]);
 
 
@@ -81,24 +81,22 @@ const ThemeSwitcher = () => {
 
         document.querySelectorAll(currentTheme.themeIcon.showIconClassName).forEach(icon =>
           icon.style.display = "block"
-        ); 
+        );
       }
       switchTheme();
     }
   }, [triggered, currentTheme]);
 
 
-  return (
-    triggered ? (
+  return ( triggered &&
     <Row>
       <Col>
-        <div onClick={() => setTheme(prevTheme => prevTheme === "dark" ? "light" : "dark")}>
+        <div onClick={() => setTheme(prevTheme => prevTheme === DARK_THEME ? LIGHT_THEME : DARK_THEME)}>
           <MdOutlineLightMode className="theme-icon light-theme-icon"/>
           <MdOutlineNightlight className="theme-icon dark-theme-icon"/> 
         </div> 
       </Col>
-    </Row>
-    ) : null
+    </Row>  
   );
 };
 
