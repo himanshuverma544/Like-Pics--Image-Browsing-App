@@ -1,5 +1,13 @@
+// frontend libraries
+import { Container, Row, Col, Button, Form, Input, InputGroup } from "reactstrap";
+import { BsSearch } from "react-icons/bs";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+
 // react hooks
-import { useState, useEffect, useRef, useCallback, memo } from "react";
+import { useState, useEffect, useContext, useRef, useCallback, useMemo } from "react";
+
+// context
+import { tsContext } from "../context";
 
 // remote-data management libraries
 import { useInfiniteQuery } from "react-query";
@@ -8,22 +16,17 @@ import Axios from "axios";
 // utility libraries
 import { useInView } from "react-intersection-observer";
 
-// frontend libraries
-import { Container, Row, Col, Button, Form, Input, InputGroup } from "reactstrap";
-import { BsSearch } from "react-icons/bs";
-
-// functions
-import { getImage, typewriter } from "../customFunctions";
-
 // components
 import ButtonsPanel from "./ButtonsPanel";
 import ThemeSwitcher from "./ThemeSwitcher";
 import AutoSuggestions from "./AutoSuggestions";
-import ImagesShowCase from "./ImagesShowCase";
+import ImagesGridView from "./ImagesGridView";
 
-// redux
-import { useDispatch } from "react-redux";
-import { loadImages, searchImages } from "../redux/imagesSlice";
+// functions
+import { getImage, typewriter } from "../customFunctions";
+
+// constants
+import { DARK_THEME, LIGHT_THEME } from "../constants";
 
 // data
 import popularImageSearchWords from "../assets/arrays/popularImageSearchWords";
@@ -32,6 +35,7 @@ import popularImageSearchWords from "../assets/arrays/popularImageSearchWords";
 const Explore = () => {
 
   const [searchQuery, setSearchQuery] = useState("");
+  const { tsData: { states } } = useContext(tsContext);
 
   const vals = useRef({
     storeSearchQuery: "",
@@ -40,8 +44,6 @@ const Explore = () => {
   });
 
   const searchValueNode = useRef(null);
-
-  const imagesDispatch = useDispatch();
 
   const { ref, inView } = useInView();
 
@@ -85,47 +87,25 @@ const Explore = () => {
 
 
   useEffect(() => {
-    if (inView && hasNextPage) {
-      fetchNextPage();
+
+    function fetchingNextPage() {
+      if (inView && hasNextPage) {
+        fetchNextPage();
+      }
     }
+    fetchingNextPage();
   }, [inView, hasNextPage, fetchNextPage]);
 
 
-  useEffect(() => {
+  const imagesData = useMemo(() => {
 
     if (isSuccess) {
-      
-      function storeFetchedImages() {
-
-        const { pages, pageParams } = data;
-        const { results } = pages[pages.length - 1];     
-
-        const images = results.map(image => {
-          const imgReqData = {
-            id : image.id,
-            urls : {
-              regular : image.urls.regular,
-              thumb : image.urls.thumb
-            },
-            alt : image.alt_description,
-            actions: {
-              likes : image.likes,
-              download: image.links.download
-            },
-            photographer: {
-              fullName: image.user.name,
-              profile: `${image.user.links.html}/?utm_source=like_pics&utm_medium=referral`
-            },
-            unsplashUrl: "https://unsplash.com/?utm_source=like_pics&utm_medium=referral"
-          }
-          return imgReqData;
-        });
-
-      pageParams.at(-1) === undefined ? imagesDispatch(searchImages(images)) : imagesDispatch(loadImages(images));
+      return { 
+        images: data?.pages.at(-1).results,
+        action: data?.pageParams.at(-1)
       }
-      storeFetchedImages();
     }
-  }, [data, isSuccess, imagesDispatch]);
+  }, [isSuccess, data]);
 
 
   return (
@@ -183,25 +163,39 @@ const Explore = () => {
           </Form>
         </Col>
       </Row>
-    
-      <Row className="images-showcase-row">
-        <ImagesShowCase ref={ref}/>
-      </Row>
+      
+      { isSuccess && 
+        <Row className="images-showcase-row">
+          <ImagesGridView 
+            ref={ref} 
+            newImagesData={imagesData} 
+            />
+        </Row>
+      }
+
+      { isFetchingNextPage &&
+        <Row className="images-loading-icon-row">
+          <AiOutlineLoading3Quarters 
+            className="images-loading-icon" 
+            style={{ color: states.theme === DARK_THEME ? "#FFF" : "#000" }}
+          />
+        </Row>
+      }
     
       <Row className="btns-panel-row">
         <Col>
           <div className="btns-panel-container d-flex justify-content-center">
-            <ButtonsPanel 
+            <ButtonsPanel
               nodes={{ searchValueNode }}
             />
           </div>
         </Col>
       </Row>
-
     </Container>
   );
 };
 
-export default memo(Explore);
+export default Explore;
 
 // TODO: link in placeholder
+// This component renders 2 times because of using context
