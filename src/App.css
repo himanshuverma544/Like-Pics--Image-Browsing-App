@@ -17,7 +17,7 @@ ul {
 
 .theme-icon {
   float: right;
-  width: 30px;
+  width: 2em;
   height: auto;
   cursor: pointer;
 }
@@ -28,12 +28,12 @@ ul {
 
 .hero-sec h1 {
   color: #FFF;
-  font-size: 63px;
+  font-size: 4em;
 }
 
 .hero-sec .app-icon {
-  width: 70px;
-  height: 75px;
+  width: 4.5em;
+  height: 4.5em;
 }
 
 form {
@@ -187,4 +187,30 @@ form {
 
 .btns-panel .panel-btn.active {
   border: 2px solid #BB2D3B;
+}
+
+.images-loading-icon-row {
+  display: flex;
+  justify-content: center;
+  margin: 0.5em 0 2em;
+}
+
+.images-loading-icon {
+  width: 1em;
+  height: 1em;
+  padding: 0;
+  stroke-width: 1em;
+  animation: spin 1.3s linear infinite;
+  -webkit-animation: spin 1.3s linear infinite; /* Safari */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
 }
