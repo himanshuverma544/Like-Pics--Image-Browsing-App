@@ -100,10 +100,7 @@ const Explore = () => {
   const imagesData = useMemo(() => {
 
     if (isSuccess) {
-      return { 
-        images: data?.pages.at(-1).results,
-        action: data?.pageParams.at(-1)
-      }
+      return data?.pages;
     }
   }, [isSuccess, data]);
 
@@ -164,12 +161,12 @@ const Explore = () => {
         </Col>
       </Row>
       
-      { isSuccess && 
+      { (isSuccess && imagesData.length) && 
         <Row className="images-showcase-row">
           <ImagesGridView 
             ref={ref} 
-            newImagesData={imagesData} 
-            />
+            imagesData={imagesData} 
+          />
         </Row>
       }
 
@@ -199,3 +196,4 @@ export default Explore;
 
 // TODO: link in placeholder
 // This component renders 2 times because of using context
+// react query cache is not working properly
