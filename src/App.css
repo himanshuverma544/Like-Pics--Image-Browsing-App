@@ -39,6 +39,11 @@ ul {
 .hero-sec .app-icon {
   width: 4.5em;
   height: 4.5em;
+  transition: transform .5s ease;
+}
+
+.hero-sec .app-icon:hover {
+  transform: scale(1.1);
 }
 
 form {
@@ -139,7 +144,6 @@ form {
   width: 100%;
   height: 0;
   padding-top: 100%;
-
 }
 
 .image-container:hover::before {
