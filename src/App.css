@@ -18,18 +18,23 @@ ul {
 }
 
 
-/* Explore */
+/* ThemeSwitcher */
 
-.theme-icon {
-  float: right;
-  width: 2em;
+.saved-images-icon, 
+.theme-icon, 
+.user-icon {
+  width: 1.6em;
   height: auto;
   cursor: pointer;
+  /* color: #FFF; */
 }
 
 .dark-theme-icon {
   transform: rotate(-45deg);
 }
+
+
+/* Explore */
 
 .hero-sec h1 {
   color: #FFF;
