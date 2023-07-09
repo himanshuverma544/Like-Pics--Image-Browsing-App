@@ -89,14 +89,10 @@ const ThemeSwitcher = () => {
 
 
   return ( triggered &&
-    <Row>
-      <Col>
-        <div onClick={() => setTheme(prevTheme => prevTheme === DARK_THEME ? LIGHT_THEME : DARK_THEME)}>
-          <MdOutlineLightMode className="theme-icon light-theme-icon"/>
-          <MdOutlineNightlight className="theme-icon dark-theme-icon"/> 
-        </div> 
-      </Col>
-    </Row>  
+    <div onClick={() => setTheme(prevTheme => prevTheme === DARK_THEME ? LIGHT_THEME : DARK_THEME)}>
+      <MdOutlineLightMode className="theme-icon light-theme-icon me-4"/>
+      <MdOutlineNightlight className="theme-icon dark-theme-icon me-4"/> 
+    </div> 
   );
 };
 
