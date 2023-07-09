@@ -110,7 +110,7 @@ const Explore = () => {
     <>
       <Container fluid className="py-3">
         <Row>
-          <Col class="d-flex justify-content-end">
+          <Col class="nav-icons">
             {/* <MdOutlineBookmarkAdded class="saved-images-icon me-4"/> */}
             <ThemeSwitcher/>
             {/* <AiOutlineUser class="user-icon me-2"/> */}

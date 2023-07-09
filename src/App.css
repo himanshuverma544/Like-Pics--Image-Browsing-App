@@ -36,6 +36,11 @@ ul {
 
 /* Explore */
 
+.nav-icons {
+  display: flex;
+  justify-content: end;
+}
+
 .hero-sec h1 {
   color: #FFF;
   font-size: 4em;
