@@ -10,8 +10,10 @@ const getThemeStyles = {
     links: {
       color: "#FFF"
     },
+    navIcon: {
+      fill: "#000"
+    },
     themeIcon: {
-      fill: "#000",
       hideIconClassName: ".light-theme-icon",
       showIconClassName: ".dark-theme-icon"
     },
@@ -38,8 +40,10 @@ const getThemeStyles = {
     links: {
       color: "#FFF"
     },
+    navIcon: {
+      fill: "#FFF"
+    },
     themeIcon: {
-      fill: "#FFF",
       hideIconClassName: ".dark-theme-icon",
       showIconClassName: ".light-theme-icon"
     },
