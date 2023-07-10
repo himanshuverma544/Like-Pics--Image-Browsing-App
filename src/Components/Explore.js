@@ -110,11 +110,11 @@ const Explore = () => {
     <>
       <Container fluid className="py-3">
         <Row>
-          <Col class="nav-icons">
+          <Col className="nav-icons">
             <nav>
-              {/* <MdOutlineBookmarkAdded class="saved-images-icon me-4"/> */}
+              <MdOutlineBookmarkAdded className="nav-icon saved-images-icon me-4"/>
               <ThemeSwitcher/>
-              {/* <AiOutlineUser class="user-icon me-2"/> */}
+              <AiOutlineUser className="nav-icon user-icon me-2"/>
             </nav>
           </Col>
         </Row>
@@ -146,13 +146,13 @@ const Explore = () => {
                   innerRef={searchValueNode}
                   onChange={event => setSearchQuery(event.target.value.trim())}
                   autoComplete="off"
-                  placeholder={
-                    typewriter({
-                      leftStaticStr: "Search for ", 
-                      words: popularImageSearchWords, 
-                      rightStaticStr: " from the library of over 3.48 million plus photos",
-                    })
-                  }
+                  // placeholder={
+                  //   typewriter({
+                  //     leftStaticStr: "Search for ", 
+                  //     words: popularImageSearchWords, 
+                  //     rightStaticStr: " from the library of over 3.48 million plus photos",
+                  //   })
+                  // }
                   autoFocus
                 />
                 <Button
@@ -162,12 +162,12 @@ const Explore = () => {
                   <BsSearch/>
                 </Button>
               </InputGroup>
-              <AutoSuggestions
+              {/* <AutoSuggestions
                 states={{searchQuery, setSearchQuery}}
                 nodes={{searchValueNode}}
                 variables={{limit: 5}}
                 functions={{handleSearchImages}}
-              />
+              /> */}
             </Form>
           </Col>
         </Row>
