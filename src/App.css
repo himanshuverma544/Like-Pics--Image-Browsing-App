@@ -18,27 +18,17 @@ ul {
 }
 
 
-/* ThemeSwitcher */
-
-.saved-images-icon, 
-.theme-icon, 
-.user-icon {
-  width: 1.6em;
-  height: auto;
-  cursor: pointer;
-  /* color: #FFF; */
-}
-
-.dark-theme-icon {
-  transform: rotate(-45deg);
-}
-
-
 /* Explore */
 
 nav {
   display: flex;
   justify-content: end;
+}
+
+.nav-icon {
+  width: 1.5em;
+  height: auto;
+  cursor: pointer;
 }
 
 .hero-sec h1 {
@@ -57,7 +47,7 @@ nav {
 }
 
 form {
-  margin: 20px auto 50px;
+  margin: 1.5em auto 3em;
   border-radius: 7px;
   padding-bottom: 0;
   width: 70%;
@@ -84,7 +74,7 @@ form {
 .images-loading-icon-row {
   display: flex;
   justify-content: center;
-  margin: 0.5em 0 2em;
+  margin: 0.5em 0 3.2em;
 }
 
 .images-loading-icon {
@@ -105,6 +95,13 @@ form {
 @-webkit-keyframes spin {
   0% { -webkit-transform: rotate(0deg); }
   100% { -webkit-transform: rotate(360deg); }
+}
+
+
+/* ThemeSwitcher */
+
+.dark-theme-icon {
+  transform: rotate(-45deg);
 }
 
 
@@ -143,7 +140,7 @@ form {
 /* ImageGridView */
 
 .hearts-loading-icon {
-  width: 50px;
+  width: 3em;
   z-index: 1;
 } 
 
@@ -190,7 +187,7 @@ form {
   position: absolute;
   top: 40%;
   z-index: 1;
-  font-size: 24px;
+  font-size: 1.6em;
   color: #FFF;
   visibility: hidden;
 }
@@ -205,7 +202,7 @@ form {
 }
 
 .likes .count {
-  font-size: 14.5px;
+  font-size: .65em;
 }
 
 .image-container:hover .actions-on-img {
@@ -219,7 +216,7 @@ form {
   z-index: 1;
   text-align: center;
   overflow-wrap: break-word;
-  font-size: 13px;
+  font-size: .85em;
   color: #FFF;
   visibility: hidden;
 }
@@ -239,12 +236,12 @@ form {
   position: fixed;
   bottom: 0;
   z-index: 1;
-  height: 40px;
+  height: 2.7em;
   display: none;
 }
 
 .btns-panel .theme {
-  height: inherit;
+  height: 2.5em;
 }
 
 .btns-panel .panel-btn.active {
