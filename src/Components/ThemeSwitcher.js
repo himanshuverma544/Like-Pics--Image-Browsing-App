@@ -45,17 +45,31 @@ const ThemeSwitcher = () => {
 
         document.body.style.backgroundColor = currentTheme.body.backgroundColor;
 
-        ["h1", "h6"].forEach(headingTags => {
+        ["h1", "h6"].forEach(headingTags => 
           document.querySelectorAll(headingTags).forEach(element => 
             element.style.color = currentTheme.heading.textColor
-          );
-        });
+          )
+        );
 
         document.querySelectorAll('a').forEach(element => 
           element.style.color = currentTheme.links.color
         );
 
-        document.querySelector(".theme-icon").style.fill = currentTheme.themeIcon.fill;
+        document.querySelectorAll(".nav-icon").forEach(navIcon => 
+          navIcon.style.fill = currentTheme.navIcon.fill
+        );
+        
+        document.querySelectorAll(currentTheme.themeIcon.hideIconClassName).forEach(icon =>
+          icon.style.display = "none"
+        );
+
+        document.querySelectorAll(currentTheme.themeIcon.showIconClassName).forEach(icon =>
+          icon.style.display = "block"
+        );
+
+        document.querySelectorAll(".panel-icon").forEach(icon =>
+          icon.style.fill = currentTheme.btnsPanelBtnsIcons.fill
+        );
 
         document.querySelectorAll(".panel-btn").forEach(btn => {
 
@@ -68,20 +82,7 @@ const ThemeSwitcher = () => {
           btn.addEventListener("mouseout", () => 
             btn.style.backgroundColor = currentTheme.btnsPanelBtns.default.backgroundColor
           );
-          
         });
-
-        document.querySelectorAll(".panel-icon").forEach(icon =>
-          icon.style.fill = currentTheme.btnsPanelBtnsIcons.fill
-        );
-        
-        document.querySelectorAll(currentTheme.themeIcon.hideIconClassName).forEach(icon =>
-          icon.style.display = "none"
-        );
-
-        document.querySelectorAll(currentTheme.themeIcon.showIconClassName).forEach(icon =>
-          icon.style.display = "block"
-        );
       }
       switchTheme();
     }
@@ -90,8 +91,8 @@ const ThemeSwitcher = () => {
 
   return ( triggered &&
     <div onClick={() => setTheme(prevTheme => prevTheme === DARK_THEME ? LIGHT_THEME : DARK_THEME)}>
-      <MdOutlineLightMode className="theme-icon light-theme-icon me-4"/>
-      <MdOutlineNightlight className="theme-icon dark-theme-icon me-4"/> 
+      <MdOutlineLightMode className="nav-icon theme-icon light-theme-icon me-4"/>
+      <MdOutlineNightlight className="nav-icon theme-icon dark-theme-icon me-4"/> 
     </div> 
   );
 };
