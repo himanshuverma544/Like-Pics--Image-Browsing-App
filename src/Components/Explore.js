@@ -23,8 +23,11 @@ import ThemeSwitcher from "./ThemeSwitcher";
 import AutoSuggestions from "./AutoSuggestions";
 import ImagesGridView from "./ImagesGridView";
 
+// modals
+import AuthenticationModal from "./Modals/AuthenticationModal";
+
 // functions
-import { getImage, typewriter } from "../customFunctions";
+import { getImage, typewriter, isClickedOutsideOfModal } from "../functions";
 
 // constants
 import { DARK_THEME, LIGHT_THEME } from "../constants";
@@ -35,6 +38,10 @@ import popularImageSearchWords from "../assets/arrays/popularImageSearchWords";
 
 const Explore = () => {
 
+
+  const [showAuthenticationModal, setShowAuthenticationModal] = useState(false);
+  const authenticationModalNode = useRef(null);
+  
   const [searchQuery, setSearchQuery] = useState("");
   const { tsData: { states } } = useContext(tsContext);
 
@@ -47,6 +54,17 @@ const Explore = () => {
   const searchValueNode = useRef(null);
 
   const { ref, inView } = useInView();
+
+
+  const openAuthenticationModal = useCallback(() => 
+    setShowAuthenticationModal(true)
+  , []);
+
+  const closeAuthenticationModal = useCallback(event => {
+    if (isClickedOutsideOfModal(event, authenticationModalNode)) {
+      setShowAuthenticationModal(false);
+    }
+  }, []);
 
 
   const fetchImages = useCallback(async (searchQuery, pageParam, selectedSearchVal = "") => {
@@ -114,7 +132,10 @@ const Explore = () => {
             <nav>
               <MdOutlineBookmarkAdded className="nav-icon saved-images-icon me-4"/>
               <ThemeSwitcher/>
-              <AiOutlineUser className="nav-icon user-icon me-2"/>
+              <AiOutlineUser 
+                className="nav-icon user-icon me-2"
+                onClick={openAuthenticationModal}
+              />
             </nav>
           </Col>
         </Row>
@@ -200,6 +221,13 @@ const Explore = () => {
           </Col>
         </Row>
       </Container>
+
+      { showAuthenticationModal && 
+        <AuthenticationModal
+          authenticationModalNode={authenticationModalNode}
+          closeAuthenticationModal={closeAuthenticationModal}
+        />
+      }
     </>
   );
 };
