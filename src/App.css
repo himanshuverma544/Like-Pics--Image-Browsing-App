@@ -36,13 +36,13 @@ nav {
   font-size: 4em;
 }
 
-.hero-sec .app-icon {
+.app-icon {
   width: 4.5em;
   height: 4.5em;
   transition: transform .5s ease;
 }
 
-.hero-sec .app-icon:hover {
+.app-icon:hover {
   transform: scale(1.1);
 }
 
@@ -249,9 +249,10 @@ form {
 }
 
 
-/* ViewImageModal */
+/* Modals */
 
-.the-view-image-modal {
+.the-view-image-modal, 
+.the-authentication-modal {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -264,7 +265,73 @@ form {
   background-color: rgba(0, 0, 0, 0.8);
 }
 
+
+/* ViewImageModal */
+
 .the-view-image-modal img {
   max-height: 90vh;
   max-width: 150vh;
+}
+
+
+/* Authentication Modal */
+
+.authentication-content {
+  height: 90vh;
+  width: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #252525;
+}
+
+.auth-heading {
+  color: #FFF;
+}
+
+.firebaseui-card-content form {
+  width: inherit;
+  height: inherit;
+  margin: 0;
+}
+
+.firebaseui-idp-list {
+  width: 20em;
+  height: 3.5em;
+  margin : 0;
+  display: contents;
+}
+
+.firebaseui-list-item {
+  width: inherit;
+  height: inherit;
+}
+
+.firebaseui-idp-button {
+  width: inherit;
+  height: inherit;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.firebaseui-idp-icon-wrapper {
+  width: 2em;
+  height: 2em;
+  margin-right: 1em;
+}
+
+.firebaseui-idp-icon {
+  width: inherit;
+  height: inherit;
+}
+
+.firebaseui-idp-text-long {
+  font-weight: 500;
+}
+
+.firebaseui-idp-text-short {
+  display: none;
 }
