@@ -2,12 +2,8 @@ import { useState, useEffect, useRef, useCallback, memo } from "react";
 import Axios from "axios";
 import { v4 as getKey } from "uuid";
 
-const AutoSuggestions = ({
-  states: { searchQuery, setSearchQuery },
-  nodes: { searchValueNode },
-  variables: { limit },
-  functions: { handleSearchImages },
-}) => {
+const AutoSuggestions = ({ states: { searchQuery, setSearchQuery }, nodes: { searchValueNode }, variables: { limit }, functions: { handleSearchImages } }) => {
+  
   const [autoSuggestionsData, setAutoSuggestionsData] = useState([]);
 
   const autoSuggestNode = useRef(null);
