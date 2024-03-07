@@ -2,18 +2,21 @@ import "react-toastify/dist/ReactToastify.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
-import Explore from "./components/Explore";
-
 import { Provider } from "react-redux";
 import store from "./redux/store";
+
+import "./configurations/firebase";
 
 import { tsContext as TSContext } from "./context";
 import dataReducer from "./reducers/globalData";
 import { useReducer } from "react";
-
 import { QueryClient, QueryClientProvider } from 'react-query';
 
+import Explore from "./components/Explore";
+
+
 const initialState = {
+
   states: null,
   nodes: null,
   objects: null,
