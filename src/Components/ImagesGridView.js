@@ -10,7 +10,9 @@ import { useState, useRef, useCallback, forwardRef, memo } from "react";
 
 import Axios from "axios";
 
-import ViewImageModal from "./ViewImageModal";
+import ViewImageModal from "./Modals/ViewImageModal";
+
+import { isClickedOutsideOfModal } from "../functions";
 
 import { UNSPLASH_REFERRAL_PATH, UNSPLASH_URL, UNSPLASH_NAME } from "../constants";
 
@@ -34,22 +36,15 @@ const ImagesGridView = forwardRef(({ imagesData }, ref) => {
   }, []);
 
 
-  const isClickedOutsideOfModal = useCallback((event, node) => {
-    if (node.current && !node.current.contains(event.target)) {
-      return true;
-    }
-    return false;
-  }, []);
-
-  const openViewImageModal = useCallback(imageIndexes => {
-    setShowViewImageModal(imageIndexes);
-  }, []);
+  const openViewImageModal = useCallback(imageIndexes =>
+    setShowViewImageModal(imageIndexes)
+  , []);
 
   const closeViewImageModal = useCallback(event => {
     if (isClickedOutsideOfModal(event, viewImageModalNode)) {
       setShowViewImageModal(null);
     }
-  }, [isClickedOutsideOfModal]);
+  }, []);
 
 
   return ( 
