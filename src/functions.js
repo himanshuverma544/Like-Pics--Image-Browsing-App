@@ -1,3 +1,11 @@
+function isClickedOutsideOfModal(event, node) {
+  if (node.current && !node.current.contains(event.target)) {
+    return true;
+  }
+  return false;
+}
+
+
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -75,4 +83,4 @@ function memoFunc(func) {
 const typewriter = memoFunc(theTypewriter); // TODO: Function optimization : should run only when in use
 const getImage = memoFunc(theGetImage);
 
-export { typewriter, getImage };
+export { isClickedOutsideOfModal, typewriter, getImage };
