@@ -10,7 +10,7 @@ import { useState, useRef, useCallback, forwardRef, memo } from "react";
 
 import Axios from "axios";
 
-import ViewImageModal from "./Modals/ViewImageModal";
+import ViewImageModal from "./modals/ViewImageModal";
 
 import { isClickedOutsideOfModal } from "../functions";
 
@@ -28,9 +28,10 @@ const ImagesGridView = forwardRef(({ imagesData }, ref) => {
     
     const URL = `https://api.unsplash.com/photos/${imageID}/download`;
 
+    
     Axios.get(URL, {
       params: {
-        client_id: process.env.REACT_APP_UNSPLASH_API_ACCESS_KEY
+        client_id: import.meta.env.VITE_UNSPLASH_API_ACCESS_KEY
       },
     });
   }, []);

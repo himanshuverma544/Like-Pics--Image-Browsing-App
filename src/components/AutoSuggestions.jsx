@@ -43,7 +43,7 @@ const AutoSuggestions = ({ states: { searchQuery, setSearchQuery }, nodes: { sea
       } = await Axios.get(URL, {
         headers: {
           "Ocp-Apim-Subscription-Key":
-            process.env.REACT_APP_IMAGE_SEARCH_SUGGESTIONS_API_KEY,
+            import.meta.env.VITE_IMAGE_SEARCH_SUGGESTIONS_API_KEY,
         },
         params: {
           q: searchQuery,

@@ -24,7 +24,7 @@ import AutoSuggestions from "./AutoSuggestions";
 import ImagesGridView from "./ImagesGridView";
 
 // modals
-import AuthenticationModal from "./Modals/AuthenticationModal";
+import AuthenticationModal from "./modals/AuthenticationModal";
 
 // functions
 import { getImage, typewriter, isClickedOutsideOfModal } from "../functions";
@@ -78,7 +78,7 @@ const Explore = () => {
         query: vals.current.storeSearchQuery,
         page: pageParam,
         per_page: vals.current.IMAGES_PER_PAGE,
-        client_id: process.env.REACT_APP_UNSPLASH_API_ACCESS_KEY
+        client_id: import.meta.env.VITE_UNSPLASH_API_ACCESS_KEY
       },
     });
 
