@@ -1,4 +1,4 @@
-import { STORE_DATA } from "../actions/action.types";
+import { STORE_DATA } from "../context-API/actions/action.types";
 
 const dataReducer = (state, action) => {
   
