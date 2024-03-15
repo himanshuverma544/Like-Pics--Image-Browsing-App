@@ -2,6 +2,7 @@
   "name": "like-pics-image-browsing-app",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "homepage": "https://himanshuverma544.github.io/Like-Pics",
   "scripts": {
     "dev": "vite",
