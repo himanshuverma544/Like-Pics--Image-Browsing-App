@@ -21,7 +21,8 @@ function theTypewriter({leftStaticStr = "", words, rightStaticStr = "", speed = 
     const currentWord = words[currentWordIndex];
 
     if (isDeleting) {
-      document.getElementById('search-field').placeholder = leftStaticStr + currentWord.substring(0, currentLetterIndex - 1) + cursor + rightStaticStr;
+      document.getElementById('search-field').placeholder = 
+      leftStaticStr + currentWord.substring(0, currentLetterIndex - 1) + cursor + rightStaticStr;
       currentLetterIndex--;
 
       if (currentLetterIndex === 0) {
@@ -30,7 +31,8 @@ function theTypewriter({leftStaticStr = "", words, rightStaticStr = "", speed = 
       }
     }
     else {
-      document.getElementById('search-field').placeholder = leftStaticStr + currentWord.substring(0, currentLetterIndex + 1) + cursor + rightStaticStr;
+      document.getElementById('search-field').placeholder =
+      leftStaticStr + currentWord.substring(0, currentLetterIndex + 1) + cursor + rightStaticStr;
       currentLetterIndex++;
 
       if (currentLetterIndex === currentWord.length) {
@@ -43,20 +45,6 @@ function theTypewriter({leftStaticStr = "", words, rightStaticStr = "", speed = 
   setInterval(type, speed);
 
   return words.join(' ');
-}
-
-
-function theGetImage(name) {
-  
-  try {
-    const image = require(`./assets/images/${name}`);
-    const value = image ? image : null;
-    return value;
-  }
-  catch (exception) {
-    console.log(`Image with name "${name}" does not exist.`);
-    return null;
-  }
 }
 
 
@@ -81,6 +69,5 @@ function memoFunc(func) {
 
 
 const typewriter = memoFunc(theTypewriter); // TODO: Function optimization : should run only when in use
-const getImage = memoFunc(theGetImage);
 
-export { isClickedOutsideOfModal, typewriter, getImage };
+export { isClickedOutsideOfModal, typewriter};
