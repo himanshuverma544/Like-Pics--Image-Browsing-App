@@ -21,4 +21,4 @@ const ViewImageModal = ({ imageIndexes: {i, j}, imagesData, viewImageModalNode, 
   );
 }
 
-export default memo(ViewImageModal);
+export default ViewImageModal;

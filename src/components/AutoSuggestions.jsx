@@ -175,7 +175,7 @@ const AutoSuggestions = ({ states: { searchQuery, setSearchQuery }, nodes: { sea
   );
 };
 
-export default memo(AutoSuggestions);
+export default (AutoSuggestions);
 
 // TODOs:
 // key functionality
