@@ -1,24 +1,4 @@
-/* Global */
-
-*,
-*::after,
-*::before {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
-
-body {
-  position: relative;
-  background-color: #252525;
-}
-
-ul {
-  list-style: none;
-}
-
-
-/* Explore */
+/* Header */
 
 nav {
   display: flex;
@@ -30,6 +10,9 @@ nav {
   height: auto;
   cursor: pointer;
 }
+
+
+/* Explore */
 
 .hero-sec h1 {
   color: #FFF;
@@ -334,4 +317,32 @@ form {
 
 .firebaseui-idp-text-short {
   display: none;
+}
+
+
+footer {
+  p {
+    cursor: pointer;
+
+    & .heart-like-filled {
+      display: none;
+    }
+
+    & .heart-like,
+    & .heart-like-filled {
+      margin: 0.1rem 0 0 0.1rem;
+    }
+
+    &:hover {
+
+      & .heart-like {
+        display: none;
+      }
+      
+      & .heart-like-filled {
+        display: block;
+        fill: #BB2D3B;
+      }
+    }
+  }
 }
