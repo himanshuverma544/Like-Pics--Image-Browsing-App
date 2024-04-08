@@ -4,7 +4,7 @@ import randomColor from "randomcolor";
 
 import { Hearts } from "react-loading-icons";
 import { AiOutlineHeart, AiFillHeart, AiOutlineDownload } from "react-icons/ai";
-import { MdOutlineBookmarkAdd, MdOutlineBookmarkAdded } from "react-icons/md";
+import { GoBookmark, GoBookmarkFill, GoBookmarkSlashFill } from "react-icons/go";
 
 import { useState, useRef, useCallback, forwardRef, memo } from "react";
 
@@ -12,12 +12,13 @@ import Axios from "axios";
 
 import ViewImageModal from "./modals/ViewImageModal";
 
-import { isClickedOutsideOfModal } from "../functions";
+import { isClickedOutsideOfModal } from "../utils/functions";
 
-import { UNSPLASH_REFERRAL_PATH, UNSPLASH_URL, UNSPLASH_NAME } from "../constants";
+import { UNSPLASH_REFERRAL_PATH, UNSPLASH_URL, UNSPLASH_NAME } from "../utils/constants";
 
 
 const ImagesGridView = forwardRef(({ imagesData }, ref) => {
+
 
 
   const [showViewImageModal, setShowViewImageModal] = useState(null);
@@ -28,7 +29,7 @@ const ImagesGridView = forwardRef(({ imagesData }, ref) => {
     
     const URL = `https://api.unsplash.com/photos/${imageID}/download`;
 
-    
+     
     Axios.get(URL, {
       params: {
         client_id: import.meta.env.VITE_UNSPLASH_API_ACCESS_KEY
@@ -52,7 +53,11 @@ const ImagesGridView = forwardRef(({ imagesData }, ref) => {
     <> 
       {imagesData.map((imageData, i) => (
         imageData.results.map((image, j) => (
-          <Col className="justify-content-center d-flex py-1 px-1" key={image.id} sm={6} md={4} lg={3}>
+          <Col 
+            key={image.id}
+            className="d-flex justify-content-center py-1 px-1"
+            sm={6} md={4} lg={3}
+          >
             <ProgressiveImage src={image.urls.regular} placeholder={image.urls.thumb}>
               {(src, loading) => (
                 <div 
@@ -61,7 +66,11 @@ const ImagesGridView = forwardRef(({ imagesData }, ref) => {
                   style={{backgroundColor : randomColor()}}
                   onClick={() => openViewImageModal({i, j})}
                 >
-                  <Hearts className="hearts-loading-icon ms-3" style={{ display: loading ? "block" : "none" }} stroke="#000"/>
+                  <Hearts 
+                    className="hearts-loading-icon ms-3" 
+                    style={{ display: loading ? "block" : "none" }}
+                    stroke="#000"
+                  />
                   <div className="actions-on-img d-flex">
                     <div className="download">
                       <a 
@@ -78,7 +87,7 @@ const ImagesGridView = forwardRef(({ imagesData }, ref) => {
                       <span className="count">{image.likes}</span>
                     </div>
                     <div className="save">
-                      <MdOutlineBookmarkAdd/>
+                      <GoBookmark/>
                     </div>
                   </div>
                   <div className="attribution p-1">
@@ -118,6 +127,8 @@ const ImagesGridView = forwardRef(({ imagesData }, ref) => {
   );
 });
 
-export default memo(ImagesGridView);
+ImagesGridView.displayName = "ImagesGridView";
+
+export default ImagesGridView; // memo(ImagesGridView)
 
 // TODO : photos count and photographer count Counter
