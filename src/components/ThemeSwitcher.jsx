@@ -1,13 +1,13 @@
 import { useState, useEffect, useContext, memo } from "react";
 
-import { tsContext } from "../context";
-import { storeData } from "../actions/action.creators";
+import { tsContext } from "../context-API/context";
+import { storeData } from "../context-API/actions/action.creators";
 
-import { Row, Col } from "reactstrap";
 import { MdOutlineLightMode, MdOutlineNightlight } from "react-icons/md";
 
-import { DARK_THEME, LIGHT_THEME } from "../constants";
-import getThemeStyles from "../assets/objects/getThemeStyles";
+import { DARK_THEME, LIGHT_THEME } from "../utils/constants";
+import getThemeStyles from "../assets/data/objects/getThemeStyles";
+
 
 const ThemeSwitcher = () => {
 
@@ -17,7 +17,7 @@ const ThemeSwitcher = () => {
   });
   const currentTheme = getThemeStyles[theme];
 
-  const { tsData: { triggered }, tsDispatch: dispatch } = useContext(tsContext);
+  const { data: { triggered }, dispatch } = useContext(tsContext);
 
   useEffect(() => {
     function storeGlobalData() {
@@ -89,12 +89,22 @@ const ThemeSwitcher = () => {
   }, [triggered, currentTheme]);
 
 
-  return ( triggered &&
-    <div onClick={() => setTheme(prevTheme => prevTheme === DARK_THEME ? LIGHT_THEME : DARK_THEME)}>
-      <MdOutlineLightMode className="nav-icon theme-icon light-theme-icon me-4"/>
-      <MdOutlineNightlight className="nav-icon theme-icon dark-theme-icon me-4"/> 
-    </div> 
+  return ( 
+    triggered &&
+      <div className="ms-3" 
+        onClick={() =>
+          setTheme(prevTheme =>
+            prevTheme === LIGHT_THEME ?
+            DARK_THEME :
+            LIGHT_THEME
+          )
+        }>
+        { theme === LIGHT_THEME ?
+          <MdOutlineNightlight className="dark-theme-icon theme-icon nav-icon me-4"/> :
+          <MdOutlineLightMode className="light-theme-icon theme-icon nav-icon me-4"/>
+        }
+      </div> 
   );
 };
 
-export default memo(ThemeSwitcher);
+export default ThemeSwitcher;
