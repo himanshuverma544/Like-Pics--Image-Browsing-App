@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { auth } from "firebaseui";
 import { getAuth, EmailAuthProvider, GoogleAuthProvider } from "firebase/auth";
 
-import { getImage } from "../../functions" 
+import LikeIcon from "../../assets/images/like-icon.png";
 
 
 const AuthenticationModal = ({authenticationModalNode, closeAuthenticationModal}) => {
@@ -43,10 +43,10 @@ const AuthenticationModal = ({authenticationModalNode, closeAuthenticationModal}
   }, []);
 
   return createPortal(
-    <div className="the-authentication-modal" onClick={event => closeAuthenticationModal(event)}>
+    <div className="the-authentication-modal" onClick={closeAuthenticationModal}>
       <div ref={authenticationModalNode} className="authentication-content">
-        <img className="app-icon auth-app-icon" src={getImage("like-icon.png")} alt="Like Icon"/>
-        <h1 class="auth-heading">Sign In to Like Pics</h1>
+        <img className="app-icon auth-app-icon" src={LikeIcon} alt="Like Icon"/>
+        <h1 className="auth-heading">Sign In to Like Pics</h1>
         <div id="firebase-ui-auth-container"></div>
         <div id="loader">Loading...</div>
         <hr></hr>
