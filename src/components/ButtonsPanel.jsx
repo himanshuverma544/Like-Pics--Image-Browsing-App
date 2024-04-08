@@ -1,27 +1,30 @@
 import { useContext, useEffect, useRef, useCallback, memo } from "react";
 
-import { tsContext } from "../context";
+import { tsContext } from "../context-API/context";
 
 import  { Button } from "reactstrap";
+
 import { 
-  MdOutlineExplore, MdExplore, 
-  MdOutlineBookmarkAdded, MdBookmarkAdded,
+  MdExplore, MdOutlineExplore,
   MdOutlineLightMode, MdOutlineNightlight
 } 
 from "react-icons/md";
-import { 
-  RiSearchLine, RiSearchFill, 
-  RiArrowUpSLine 
-} 
-from "react-icons/ri";
+import { BsBookmarkCheckFill, BsBookmarkCheck } from "react-icons/bs";
+import { RiSearchLine, RiArrowUpSLine } from "react-icons/ri";
 
 
-const ButtonsPanel = ({ nodes: { searchValueNode } }) => {
+const ButtonsPanel = () => {
 
-  const { tsData: { triggered }, tsData: { states } } = useContext(tsContext);
+  const { data: { triggered }, data: { states } } = useContext(tsContext);
 
   const btnsPanelNode = useRef(null);
-  
+
+  const searchValueNode = useRef(null);
+
+  useEffect(() => {
+
+    searchValueNode.current = document.getElementById("search-field");
+  }, []);
 
   const isElementInViewport = useCallback(element => {
     const rect = element.getBoundingClientRect();
@@ -65,28 +68,33 @@ const ButtonsPanel = ({ nodes: { searchValueNode } }) => {
   }, [searchValueNode, scrollToTop]);
 
 
-  return ( triggered &&
-    <div className="btns-panel" ref={btnsPanelNode}>
-      <Button className="search panel-btn" onClick={search}>
-        <RiSearchLine className="panel-icon"/>
-      </Button>
-      <Button className="explore panel-btn active ms-1">
-        <MdOutlineExplore className="panel-icon"/>
-      </Button>
-      <Button className="saved panel-btn ms-1">
-        <MdOutlineBookmarkAdded className="panel-icon"/>
-      </Button>
-      <Button className="theme panel-btn ms-1" onClick={switchTheme}>
-        <MdOutlineLightMode className="panel-icon light-theme-icon"/>
-        <MdOutlineNightlight className="panel-icon dark-theme-icon"/>
-      </Button>
-      <Button className="up panel-btn ms-1" onClick={scrollToTop}>
-        <RiArrowUpSLine className="panel-icon"/>
-      </Button>
-    </div>
+  return ( 
+    triggered &&
+      <div className="btns-panel-container d-flex justify-content-center">
+        <div className="btns-panel" ref={btnsPanelNode}>
+          <Button className="search panel-btn" onClick={search}>
+            <RiSearchLine className="panel-icon"/>
+          </Button>
+          <Button className="explore panel-btn active ms-1">
+            <MdExplore className="panel-icon"/>
+          </Button>
+          <Button className="saved panel-btn ms-1">
+            <BsBookmarkCheck className="panel-icon"/>
+          </Button>
+          <Button className="theme panel-btn ms-1" onClick={switchTheme}>
+            {states.theme === "light" ?
+              <MdOutlineNightlight className="dark-theme-icon panel-icon"/> : 
+              <MdOutlineLightMode className="light-theme-icon panel-icon"/>
+            }
+          </Button>
+          <Button className="up panel-btn ms-1" onClick={scrollToTop}>
+            <RiArrowUpSLine className="panel-icon"/>
+          </Button>
+        </div>
+      </div>
   );
 };
 
-export default memo(ButtonsPanel);
+export default ButtonsPanel;
 
 // TODO: adding the sliding effect for button panel
