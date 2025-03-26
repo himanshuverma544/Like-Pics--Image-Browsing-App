@@ -75,12 +75,12 @@ const ButtonsPanel = () => {
           <Button className="search panel-btn" onClick={search}>
             <RiSearchLine className="panel-icon"/>
           </Button>
-          <Button className="explore panel-btn active ms-1">
+          {/* <Button className="explore panel-btn active ms-1">
             <MdExplore className="panel-icon"/>
           </Button>
           <Button className="saved panel-btn ms-1">
             <BsBookmarkCheck className="panel-icon"/>
-          </Button>
+          </Button> */}
           <Button className="theme panel-btn ms-1" onClick={switchTheme}>
             {states.theme === "light" ?
               <MdOutlineNightlight className="dark-theme-icon panel-icon"/> : 
