@@ -44,10 +44,10 @@ const Layout = () => {
 
   return (
     <>
-      <header className="bg-success">
+      <header className="header">
         <nav className="app-navbar">
-          <ul className="d-flex gap-4 p-3 bg-success">
-            <SmartNavLink  
+          <ul className="d-flex gap-4 p-3">
+            {/* <SmartNavLink  
               path={EXPLORE.pathname}
               activeIcon={<MdExplore/>}
               inactiveIcon={<MdOutlineExplore/>}
@@ -60,10 +60,10 @@ const Layout = () => {
               inactiveIcon={<BsBookmarkCheck/>}
               title={SAVED.title}
             />
-            
+             */}
             <ThemeSwitcher/>
      
-            <SmartNavLink 
+            {/* <SmartNavLink 
               path={AUTHENTICATION.pathname}
               activeIcon={<FaUser className="user-icon-active nav-icon"/>}
               inactiveIcon={
@@ -72,14 +72,14 @@ const Layout = () => {
                   onClick={openAuthenticationModal}
                 />
               }
-            />     
+            />*/}
 
-            { showAuthenticationModal && 
+            {/* { showAuthenticationModal && 
               <AuthenticationModal
                 authenticationModalNode={authenticationModalNode}
                 closeAuthenticationModal={closeAuthenticationModal}
               />
-            }        
+            }*/}
           </ul>
         </nav>
       </header>
@@ -89,7 +89,7 @@ const Layout = () => {
         <ButtonsPanel/>
       </main>
     
-      <footer className="bg-success d-flex justify-content-around p-3">
+      <footer className="d-flex justify-content-around p-3">
         <Link 
           to="https://www.linktr.ee/himanshuverma544"
           target="_blank"

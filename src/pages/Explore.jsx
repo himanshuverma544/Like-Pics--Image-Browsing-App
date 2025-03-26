@@ -140,25 +140,25 @@ const Explore = () => {
                   innerRef={searchValueNode}
                   onChange={event => setSearchQuery(event.target.value.trim())}
                   autoComplete="off"
-                  // placeholder={
-                  //   typewriter({
-                  //     leftStaticStr: "Search for ", 
-                  //     words: popularImageSearchWords, 
-                  //     rightStaticStr: " from the library of over 3.48 million plus photos",
-                  //   })
-                  // }
+                  placeholder={
+                    typewriter({
+                      leftStaticStr: "Search for ", 
+                      words: popularImageSearchWords, 
+                      rightStaticStr: " from the library of over 3.48 million plus photos",
+                    })
+                  }
                   autoFocus
                 />
                 <Button className="search-btn" color="danger">
                   <BsSearch/>
                 </Button>
               </InputGroup>
-              {/* <AutoSuggestions
+              <AutoSuggestions
                 states={{searchQuery, setSearchQuery}}
                 nodes={{searchValueNode}}
                 variables={{limit: 5}}
                 functions={{handleSearchImages}}
-              /> */}
+              />
             </Form>
           </Col>
         </Row>
