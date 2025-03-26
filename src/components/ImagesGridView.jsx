@@ -71,7 +71,7 @@ const ImagesGridView = forwardRef(({ imagesData }, ref) => {
                     style={{ display: loading ? "block" : "none" }}
                     stroke="#000"
                   />
-                  <div className="actions-on-img d-flex">
+                  <div className="actions-on-img d-flex justify-content-center">
                     <div className="download">
                       <a 
                         href={image.links.download} 
@@ -86,9 +86,9 @@ const ImagesGridView = forwardRef(({ imagesData }, ref) => {
                       <AiOutlineHeart className="heart-like"/>
                       <span className="count">{image.likes}</span>
                     </div>
-                    <div className="save">
+                    {/* <div className="save">
                       <GoBookmark/>
-                    </div>
+                    </div> */}
                   </div>
                   <div className="attribution p-1">
                     {"Photo by "} 

@@ -83,7 +83,7 @@ const ButtonsPanel = () => {
           </Button> */}
           <Button className="theme panel-btn ms-1" onClick={switchTheme}>
             {states.theme === "light" ?
-              <MdOutlineNightlight className="dark-theme-icon panel-icon"/> : 
+              <MdOutlineNightlight className="dark-theme-icon panel-icon" style={{ color: "#000000" }}/> : 
               <MdOutlineLightMode className="light-theme-icon panel-icon"/>
             }
           </Button>
