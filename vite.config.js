@@ -6,7 +6,7 @@ import eslint from 'vite-plugin-eslint';
 
 export default defineConfig({
 
-  base: "/Like-Pics-Image-Browsing-App/",
+  base: "/Like-Pics--Image-Browsing-App/",
 
   plugins: [
     react(),

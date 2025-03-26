@@ -104,7 +104,7 @@ const Layout = () => {
         </p>
 
         <Link
-          to="https://www.github.com/himanshuverma544/Like-Pics"
+          to="https://github.com/himanshuverma544/Like-Pics--Image-Browsing-App"
           target="_blank"
         >
           <span className="d-flex align-items-center">
